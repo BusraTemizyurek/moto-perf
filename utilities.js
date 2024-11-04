@@ -26,3 +26,9 @@ function formatDate(date) {
         hour12: true
     });
 }
+
+function setAttributes(element, attributes) {
+    for (const attribute of attributes) {
+        element.setAttribute(attribute[0], attribute[1]);
+    }
+}
