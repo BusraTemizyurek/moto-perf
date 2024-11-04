@@ -28,7 +28,7 @@ function formatDate(date) {
 }
 
 function setAttributes(element, attributes) {
-    for (const attribute of attributes) {
-        element.setAttribute(attribute[0], attribute[1]);
+    for (const [key, value] of attributes) {
+        element.setAttribute(key, value);
     }
 }
