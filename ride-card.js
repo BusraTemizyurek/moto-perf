@@ -31,8 +31,13 @@ class RideCard {
     }
 
     #makeTimespanReadable(timespan) {
-        // TODO:
-        return timespan.toString();
+        const durationMinutes = Math.floor(timespan / (1000 * 60)); // converting timespan(duration in milliseconds) to minutes
+
+        const hours = Math.floor(durationMinutes / 60); // converting durationMinutes to hours
+        const minutes = durationMinutes % 60;
+        const duration = minutes === 0 ? `${hours} h` : `${hours} h ${minutes} min`;
+
+        return duration;
     }
 
     #createDataPair(title, value) {
