@@ -1,0 +1,36 @@
+body {
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.root-div {
+    height: 100%;
+}
+
+.main-header {
+    height: 45px;
+    margin: unset;
+}
+
+.main-rec-button {
+    width: 56;
+    height: 56px;
+    bottom: 0;
+    right: 0;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    position: absolute;
+    z-index: 9999;
+    border: unset;
+    padding: unset;
+}
+
+.main-cardlist-div {
+    height: 100%;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.fs-7 {
+    font-size: 0.75rem;
+}
