@@ -16,7 +16,7 @@ class MainPage {
     #createCardList(sessions) {
         const cardList = document.createElement("div");
         cardList.id = "card-list";
-        cardList.classList.add("main-cardlist-div", "flex-grow", "bg-secondary");
+        cardList.classList.add("main-cardlist-div", "flex-grow");
 
         for (const session of sessions) {
             const card = new RideCard(session);
