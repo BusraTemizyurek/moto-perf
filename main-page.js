@@ -36,8 +36,8 @@ class MainPage {
 
     #createButton() {
         const rec = document.createElement("button");
-        rec.innerHTML = '<i class="fa-regular fa-circle-dot fa-2xl" style="color: #d91102;"></i>';
-        rec.classList.add("main-rec-button", "fs-1", "bg-subtle", "rounded-circle");
+        rec.innerHTML = '<i class="fa-regular fa-circle-dot fa-lg" style="color: #d91102;"></i>';
+        rec.classList.add("main-rec-button", "fs-1", "bg-body", "rounded-circle");
         rec.onclick = this.#onRecClick.bind(this);
 
         return rec;
