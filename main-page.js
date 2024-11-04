@@ -7,9 +7,8 @@ class MainPage {
     //helper functions
     #createHeader() {
         const head = document.createElement("div");
-        head.innerText = "MotoPerf";
-        head.classList.add("fs-2", "bg-dark", "text-white", "main-header", "d-flex", "justify-content-center", "align-items-center", "flex-shrink-0");
-
+        head.innerText = "Home";
+        head.classList.add("fs-6", "fw-bold", "bg-body", "main-header", "d-flex", "justify-content-center", "align-items-center", "flex-shrink-0");
         return head;
     }
 
