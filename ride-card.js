@@ -27,7 +27,7 @@ class RideCard {
 
         //const map = document.createElement("div");
         cardDiv.append(title, data);
-        cardDiv.classList.add("bg-dark", "m-1");
+        cardDiv.classList.add("bg-dark", "m-1", "px-3", "py-2");
     }
 
     #makeTimespanReadable(timespan) {
