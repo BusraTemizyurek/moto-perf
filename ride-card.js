@@ -8,7 +8,7 @@ class RideCard {
         const title = document.createElement("div");
         const titleHead = document.createElement("div");
         titleHead.innerText = convertTimeToDayDivision(session.date);
-        titleHead.classList.add("fs-3");
+        titleHead.classList.add("fs-5");
         const titleDate = document.createElement("div");
         titleDate.innerText = formatDate(session.date);
         titleDate.classList.add("fs-7");
@@ -27,12 +27,19 @@ class RideCard {
 
         //const map = document.createElement("div");
         cardDiv.append(title, data);
-        cardDiv.classList.add("bg-black", "text-white", "m-1");
+        cardDiv.classList.add("bg-dark", "m-1");
     }
 
     #makeTimespanReadable(timespan) {
-        // TODO:
-        return timespan.toString();
+        const durationMinutes = Math.floor(timespan / (1000 * 60)); // converting timespan(duration in milliseconds) to minutes
+
+        const hours = Math.floor(durationMinutes / 60); // converting durationMinutes to hours
+        const minutes = durationMinutes % 60;
+
+        const hoursString = `${hours} h`;
+        const minString = minutes > 0 ? `${minutes} min` : "";
+
+        return `${hoursString} ${minString}`;;
     }
 
     #createDataPair(title, value) {
