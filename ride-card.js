@@ -35,9 +35,11 @@ class RideCard {
 
         const hours = Math.floor(durationMinutes / 60); // converting durationMinutes to hours
         const minutes = durationMinutes % 60;
-        const duration = minutes === 0 ? `${hours} h` : `${hours} h ${minutes} min`;
 
-        return duration;
+        const hoursString = `${hours} h`;
+        const minString = minutes > 0 ? `${minutes} min` : "";
+
+        return `${hoursString} ${minString}`;;
     }
 
     #createDataPair(title, value) {
