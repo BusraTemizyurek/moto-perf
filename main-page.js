@@ -65,7 +65,6 @@ class MainPage {
         return exampleElement;
     }
 
-
     #calibrationModal = undefined;
     #recordButton = undefined;
     //drawing the page
@@ -153,8 +152,5 @@ class MainPage {
 
         this.#recordButton = this.#createRecordButton();
         root.append(this.#createHeader(), this.#createCardList(sessions), this.#recordButton);
-
     }
-
-
 }
