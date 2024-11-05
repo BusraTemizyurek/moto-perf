@@ -14,5 +14,4 @@ class SessionRepository {
     get sessions() {
         return this.#sessions;
     }
-
 }
