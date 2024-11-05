@@ -31,18 +31,18 @@ class MainPage {
     }
 
     #onClickModalClose() {
-        document.getElementById("record-button").classList.remove("d-none");
+        this.#recordButton.classList.remove("d-none");
     }
 
 
     #onClickModalReady() {
         this.#calibrationModal.hide();
-        document.getElementById("record-button").classList.remove("d-none");
+        this.#recordButton.classList.remove("d-none");
         // TODO: get initial orientation, ask to access the location and navigate to recording page.
     }
 
     #onRecordClick() {
-        document.getElementById("record-button").classList.add("d-none");
+        this.#recordButton.classList.add("d-none");
         this.#calibrationModal.show();
     }
 
@@ -67,7 +67,7 @@ class MainPage {
 
 
     #calibrationModal = undefined;
-
+    #recordButton = undefined;
     //drawing the page
     render(root) {
         const sessions = [
@@ -151,8 +151,8 @@ class MainPage {
             onClose: this.#onClickModalClose.bind(this)
         });
 
-
-        root.append(this.#createHeader(), this.#createCardList(sessions), this.#createRecordButton());
+        this.#recordButton = this.#createRecordButton();
+        root.append(this.#createHeader(), this.#createCardList(sessions), this.#recordButton);
 
     }
 
