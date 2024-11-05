@@ -19,17 +19,17 @@ class MainPage {
         cardList.id = "card-list";
         cardList.classList.add("main-cardlist-div", "flex-grow");
 
-        for (const session of sessions) {
-            const card = new RideCard(session);
-            cardList.append(card.element);
+        if (sessions.length === 0) {
+            const noRideCard = new NoRideCard();
+            cardList.append(noRideCard.element);
+        } else {
+            for (const session of sessions) {
+                const card = new RideCard(session);
+                cardList.append(card.element);
+            }
         }
 
         return cardList;
-    }
-
-    #createNoDataMessage() {
-        const noDataMessage = document.createElement("div");
-        noDataMessage.innerText = "Looks like you haven't had a ride yet. Let's start! To record a session click the record button on the bottom right corner";
     }
 
     #onClickModalClose() {
@@ -80,6 +80,7 @@ class MainPage {
         });
 
         this.#recordButton = this.#createRecordButton();
+
         root.append(this.#createHeader(), this.#createCardList(this.#sessionRepository.sessions), this.#recordButton);
     }
 }
