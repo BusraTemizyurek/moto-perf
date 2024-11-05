@@ -19,34 +19,17 @@ class MainPage {
         cardList.id = "card-list";
         cardList.classList.add("main-cardlist-div", "flex-grow");
 
-        for (const session of sessions) {
-            const card = new RideCard(session);
-            cardList.append(card.element);
+        if (sessions.length === 0) {
+            const noRideCard = new NoRideCard();
+            cardList.append(noRideCard.element);
+        } else {
+            for (const session of sessions) {
+                const card = new RideCard(session);
+                cardList.append(card.element);
+            }
         }
 
         return cardList;
-    }
-
-    #createNoDataMessage() {
-        const list = document.createElement("div");
-        list.classList.add("main-cardlist-div");
-
-        const card = document.createElement("div");
-        card.classList.add("bg-body-tertiary", "my-1", "px-3", "py-2", "no-data-message");
-
-
-        const noDataMessageTitle = document.createElement("div");
-        noDataMessageTitle.innerText = "No Ride Yet!";
-        noDataMessageTitle.classList.add("fs-5", "fw-bold", "mb-1");
-
-        const noDataMessage = document.createElement("div");
-        noDataMessage.innerText = "Looks like you haven't had a ride yet. Let's start! To record a session click the record button on the bottom right corner!";
-        noDataMessage.classList.add("d-flex", "align-items-center");
-        card.append(noDataMessageTitle, noDataMessage);
-
-        list.append(card);
-
-        return list;
     }
 
     #onClickModalClose() {
@@ -98,8 +81,6 @@ class MainPage {
 
         this.#recordButton = this.#createRecordButton();
 
-        const cardList = this.#sessionRepository.sessions.length === 0 ? this.#createNoDataMessage() : this.#createCardList(this.#sessionRepository.sessions);
-
-        root.append(this.#createHeader(), cardList, this.#recordButton);
+        root.append(this.#createHeader(), this.#createCardList(this.#sessionRepository.sessions), this.#recordButton);
     }
 }
