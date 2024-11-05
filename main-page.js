@@ -30,19 +30,43 @@ class MainPage {
         noDataMessage.innerText = "Looks like you haven't had a ride yet. Let's start! To record a session click the record button on the bottom right corner";
     }
 
-    #onRecClick() {
-        this.#router.navigate("recording");
+    #onClickModalClose() {
+        document.getElementById("record-button").classList.remove("d-none");
     }
 
-    #createButton() {
+
+    #onClickModalReady() {
+        this.#calibrationModal.hide();
+        document.getElementById("record-button").classList.remove("d-none");
+        // TODO: get initial orientation, ask to access the location and navigate to recording page.
+    }
+
+    #onRecordClick() {
+        document.getElementById("record-button").classList.add("d-none");
+        this.#calibrationModal.show();
+    }
+
+    #createRecordButton() {
         const rec = document.createElement("button");
+        rec.id = "record-button";
+        rec.type = "button";
         rec.innerHTML = '<i class="fa-solid fa-circle fa-xl" style="color: #d10510;"></i>';
         rec.classList.add("shadow-sm", "main-rec-button", "btn", "btn-outline-dark", "bg-secondary-subtle", "border", "border-4", "border-black", "rounded-circle");
-        rec.onclick = this.#onRecClick.bind(this);
+        rec.onclick = this.#onRecordClick.bind(this);
 
         return rec;
     }
 
+    #createCalibrationModalContent() {
+        // TODO: Below example will be removed and canvas components will be added;
+        const exampleElement = document.createElement("div");
+        exampleElement.innerText = "TEST";
+
+        return exampleElement;
+    }
+
+
+    #calibrationModal = undefined;
 
     //drawing the page
     render(root) {
@@ -119,8 +143,17 @@ class MainPage {
             }
         ];
 
+        this.#calibrationModal = new Modal({
+            title: "Calibration",
+            createContent: this.#createCalibrationModalContent.bind(this),
+            buttonTitle: "Ready!",
+            onButtonClick: this.#onClickModalReady.bind(this),
+            onClose: this.#onClickModalClose.bind(this)
+        });
 
-        root.append(this.#createHeader(), this.#createCardList(sessions), this.#createButton());
+
+        root.append(this.#createHeader(), this.#createCardList(sessions), this.#createRecordButton());
+
     }
 
 
