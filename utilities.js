@@ -1,18 +1,14 @@
 function convertTimeToDayDivision(date) {
     const timeRange = date.getHours();
-    let dayDivision = undefined;
 
     if (timeRange >= 5 && timeRange <= 11) {
-        dayDivision = "Morning Ride";
+        return "Morning Ride";
     } else if (timeRange >= 12 && timeRange <= 16) {
-        dayDivision = "Afternoon Ride";
+        return "Afternoon Ride";
     } else if (timeRange >= 17 && timeRange <= 21) {
-        dayDivision = "Evening Ride";
-    } else {
-        dayDivision = "Night Ride";
+        return "Evening Ride";
     }
-
-    return dayDivision;
+    return "Night Ride";
 }
 
 // ex: "November 3, 2024 at 6:42 pm."
@@ -27,8 +23,14 @@ function formatDate(date) {
     });
 }
 
+/**
+ * 
+ * @param {HTMLElement} element 
+ * @param {Record<string, string> | [string,string][]} attributes 
+ */
 function setAttributes(element, attributes) {
-    for (const [key, value] of attributes) {
+    const attributeArray = Array.isArray(attributes) ? attributes : Object.entries(attributes);
+    for (const [key, value] of attributeArray) {
         element.setAttribute(key, value);
     }
 }
