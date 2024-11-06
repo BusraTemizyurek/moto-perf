@@ -1,5 +1,7 @@
 class CalibrationContent {
     private readonly _modalContent: HTMLElement;
+    private readonly _waitingContent: HTMLElement;
+    private readonly _canvas: HTMLCanvasElement;
 
     constructor() {
         const modalContent = document.createElement("div");
@@ -8,7 +10,7 @@ class CalibrationContent {
 
         //waiting page
         const waitingPage = document.createElement("div");
-
+        this._waitingContent = waitingPage;
         const spinner = document.createElement("div");
         spinner.classList.add("spinner-border");
         spinner.setAttribute("role", "status");
@@ -21,11 +23,12 @@ class CalibrationContent {
         messageDiv.innerText = "Please hold on while we grant orientation access.";
         messageDiv.classList.add("mt-3");
         waitingPage.append(messageDiv);
-        waitingPage.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center")
+        waitingPage.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
 
         //calibration page
         const canvas = document.createElement("canvas");
+        this._canvas = canvas;
         canvas.classList.add("mb-5", "d-none");
         canvas.id = "lean-angle";
         setAttributes(canvas, {
@@ -34,6 +37,11 @@ class CalibrationContent {
         });
 
         modalContent.append(waitingPage, canvas);
+    }
+
+    hideWaitingContent() {
+        this._waitingContent.classList.add("d-none");
+        this._canvas.classList.remove("d-none")
     }
 
     get element() {
