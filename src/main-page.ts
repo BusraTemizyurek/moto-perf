@@ -59,21 +59,16 @@ class MainPage implements Page {
         return rec;
     }
 
-    private createCalibrationModalContent() {
-        // TODO: Below example will be removed and canvas components will be added;
-        const exampleElement = document.createElement("div");
-        exampleElement.innerText = "TEST";
-
-        return exampleElement;
-    }
-
     private _calibrationModal: Modal | undefined;
     private _recordButton: HTMLElement | undefined;
     //drawing the page
     render(root: HTMLElement) {
         this._calibrationModal = new Modal({
             title: "Calibration",
-            createContent: this.createCalibrationModalContent.bind(this),
+            createContent: function () {
+                const content = new CalibrationContent();
+                return content.element;
+            },
             buttonTitle: "Ready!",
             onButtonClick: this.onClickModalReady.bind(this),
             onClose: this.onClickModalClose.bind(this)
