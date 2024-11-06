@@ -1,5 +1,5 @@
 class Gauge {
-    private _bgcolor = "#222";
+    private readonly _bgcolor: string = "#222";
     private readonly _W: number;
     private readonly _H: number;
     private readonly _radius: number;
