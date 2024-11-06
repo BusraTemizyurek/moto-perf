@@ -1,9 +1,9 @@
 class RideCard {
-    #cardDiv = undefined;
+    private _cardDiv: HTMLDivElement;
 
-    constructor(session) {
+    constructor(session: Session) {
         const cardDiv = document.createElement("div");
-        this.#cardDiv = cardDiv;
+        this._cardDiv = cardDiv;
 
         const title = document.createElement("div");
         const titleHead = document.createElement("div");
@@ -15,7 +15,6 @@ class RideCard {
 
         title.append(titleHead, titleDate);
 
-
         const data = document.createElement("div");
 
         const dataDistanceDiv = this.#createDataPair("Distance", `${session.distance} km`);
@@ -25,12 +24,11 @@ class RideCard {
         data.append(dataDistanceDiv, dataLeanAngleDiv, dataDurationDiv);
         data.classList.add("d-flex", "gap-4", "mt-3");
 
-        //const map = document.createElement("div");
         cardDiv.append(title, data);
         cardDiv.classList.add("bg-body-tertiary", "my-1", "px-3", "py-2");
     }
 
-    #makeTimespanReadable(timespan) {
+    #makeTimespanReadable(timespan: number) {
         const durationMinutes = Math.floor(timespan / (1000 * 60)); // converting timespan(duration in milliseconds) to minutes
 
         const hours = Math.floor(durationMinutes / 60); // converting durationMinutes to hours
@@ -42,7 +40,7 @@ class RideCard {
         return `${hoursString} ${minString}`;;
     }
 
-    #createDataPair(title, value) {
+    #createDataPair(title: string, value: string) {
         const container = document.createElement("div");
 
         const titleDiv = document.createElement("div");
@@ -60,7 +58,6 @@ class RideCard {
     }
 
     get element() {
-        return this.#cardDiv;
+        return this._cardDiv;
     }
-
 }

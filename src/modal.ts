@@ -1,13 +1,21 @@
+interface ModalOptions {
+    title: string,
+    onClose: () => void,
+    createContent: () => HTMLElement,
+    buttonTitle: string,
+    onButtonClick: () => void
+}
+
 //full screen modal
 class Modal {
-    #bootstrapModal = undefined;
-    #options = undefined;
+    private _bootstrapModal: bootstrap.Modal | undefined;
+    private readonly _options: ModalOptions;
 
-    constructor(options) {
-        this.#options = options;
+    constructor(options: ModalOptions) {
+        this._options = options;
     }
 
-    #createModalElement() {
+    private createModalElement() {
         const modal = document.createElement("div");
 
         modal.classList.add("modal", "fade");
@@ -27,19 +35,19 @@ class Modal {
 
         const modalTitle = document.createElement("h1");
         modalTitle.classList.add("modal-title", "fs-5");
-        modalTitle.innerText = this.#options.title;
+        modalTitle.innerText = this._options.title;
 
         const closeButton = document.createElement("button");
         closeButton.classList.add("btn-close");
         closeButton.type = "button";
         closeButton.setAttribute("data-bs-dismiss", "modal");
-        closeButton.onclick = this.#options.onClose;
+        closeButton.onclick = this._options.onClose;
 
         modalHeader.append(modalTitle, closeButton);
 
         const body = document.createElement("div");
         body.classList.add("modal-body");
-        body.append(this.#options.createContent());
+        body.append(this._options.createContent());
         content.append(body);
 
         const footer = document.createElement("div");
@@ -49,23 +57,23 @@ class Modal {
         const button = document.createElement("button");
         button.classList.add("btn", "btn-success");
         button.type = "button";
-        button.innerText = this.#options.buttonTitle;
-        button.onclick = this.#options.onButtonClick;
+        button.innerText = this._options.buttonTitle;
+        button.onclick = this._options.onButtonClick;
         footer.append(button);
 
         return modal;
     }
 
     show() {
-        if (!this.#bootstrapModal) {
-            this.#bootstrapModal = new bootstrap.Modal(this.#createModalElement());
+        if (!this._bootstrapModal) {
+            this._bootstrapModal = new window.bootstrap.Modal(this.createModalElement());
         }
-        this.#bootstrapModal.show();
+        this._bootstrapModal.show();
     }
 
     hide() {
-        if (this.#bootstrapModal) {
-            this.#bootstrapModal.hide();
+        if (this._bootstrapModal) {
+            this._bootstrapModal.hide();
         }
     }
 }
