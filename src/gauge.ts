@@ -1,9 +1,9 @@
 class Gauge {
     private _bgcolor = "#222";
-    private _W: number;
-    private _H: number;
-    private _radius: number;
-    private _ctx: CanvasRenderingContext2D;
+    private readonly _W: number;
+    private readonly _H: number;
+    private readonly _radius: number;
+    private readonly _ctx: CanvasRenderingContext2D;
 
     constructor(canvas: HTMLCanvasElement, backgroundColor: string) {
         this._bgcolor = backgroundColor ?? this._bgcolor;

@@ -1,5 +1,5 @@
 class CalibrationContent {
-    private _modalContent: HTMLElement;
+    private readonly _modalContent: HTMLElement;
 
     constructor() {
         const modalContent = document.createElement("div");
