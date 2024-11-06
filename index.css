@@ -39,3 +39,7 @@ body {
 .no-data-message {
     height: 120px;
 }
+
+.modal-content {
+    height: 100%;
+}
