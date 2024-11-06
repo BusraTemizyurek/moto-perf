@@ -1,4 +1,4 @@
-function convertTimeToDayDivision(date) {
+function convertTimeToDayDivision(date: Date) {
     const timeRange = date.getHours();
 
     if (timeRange >= 5 && timeRange <= 11) {
@@ -12,7 +12,7 @@ function convertTimeToDayDivision(date) {
 }
 
 // ex: "November 3, 2024 at 6:42 pm."
-function formatDate(date) {
+function formatDate(date: Date) {
     return date.toLocaleString("en-US", {
         month: "long",
         day: "numeric",
@@ -23,12 +23,7 @@ function formatDate(date) {
     });
 }
 
-/**
- * 
- * @param {HTMLElement} element 
- * @param {Record<string, string> | [string,string][]} attributes 
- */
-function setAttributes(element, attributes) {
+function setAttributes(element: HTMLElement, attributes: Record<string, string> | [string, string][]) {
     const attributeArray = Array.isArray(attributes) ? attributes : Object.entries(attributes);
     for (const [key, value] of attributeArray) {
         element.setAttribute(key, value);

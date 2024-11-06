@@ -1,9 +1,9 @@
 class NoRideCard {
-    #card = undefined;
+    private readonly _card: HTMLDivElement;
 
     constructor() {
         const card = document.createElement("div");
-        this.#card = card;
+        this._card = card;
         card.classList.add("bg-body-tertiary", "my-1", "px-3", "py-2", "no-data-message");
 
         const noDataMessageTitle = document.createElement("div");
@@ -17,6 +17,6 @@ class NoRideCard {
     }
 
     get element() {
-        return this.#card;
+        return this._card;
     }
 }

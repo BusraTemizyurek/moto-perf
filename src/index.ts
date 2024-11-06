@@ -85,13 +85,17 @@ seedData();
 
 window.onload = () => {
     const sessionRepository = new SessionRepository();
+    const root = document.getElementById("root");
+    if (!root) {
+        throw new Error("No root element available");
+    }
 
-    const router = new Router(document.getElementById("root"));
+    const router = new Router(root);
 
     const mainPage = new MainPage(router, sessionRepository);
     router.register("main", mainPage);
 
-    const recordingPage = new RecordingPage(router, sessionRepository);
+    const recordingPage = new RecordingPage();
     router.register("recording", recordingPage);
 
     router.navigate("main");
