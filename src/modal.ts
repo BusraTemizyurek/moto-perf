@@ -3,13 +3,15 @@ interface ModalOptions {
     onClose: () => void,
     createContent: () => HTMLElement,
     buttonTitle: string,
-    onButtonClick: () => void
+    onButtonClick: () => void,
+    isButtonVisible: boolean
 }
 
 //full screen modal
 class Modal {
     private _bootstrapModal: bootstrap.Modal | undefined;
     private readonly _options: ModalOptions;
+    private _button: HTMLElement | undefined;
 
     constructor(options: ModalOptions) {
         this._options = options;
@@ -55,6 +57,10 @@ class Modal {
         content.append(footer);
 
         const button = document.createElement("button");
+        this._button = button;
+        if (!this._options.isButtonVisible) {
+            button.classList.add("d-none");
+        }
         button.classList.add("btn", "btn-success");
         button.type = "button";
         button.innerText = this._options.buttonTitle;
@@ -62,6 +68,13 @@ class Modal {
         footer.append(button);
 
         return modal;
+    }
+
+    showButton() {
+        this._options.isButtonVisible = true;
+        if (this._button) {
+            this._button.classList.remove("d-none");
+        }
     }
 
     show() {

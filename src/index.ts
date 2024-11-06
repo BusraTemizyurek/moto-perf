@@ -83,6 +83,7 @@ function seedData() {
 }
 seedData();
 
+
 window.onload = () => {
     const sessionRepository = new SessionRepository();
     const root = document.getElementById("root");
@@ -90,9 +91,11 @@ window.onload = () => {
         throw new Error("No root element available");
     }
 
+    const orientation = new Orientation();
+
     const router = new Router(root);
 
-    const mainPage = new MainPage(router, sessionRepository);
+    const mainPage = new MainPage(router, sessionRepository, orientation);
     router.register("main", mainPage);
 
     const recordingPage = new RecordingPage();

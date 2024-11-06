@@ -1,9 +1,11 @@
 class MainPage implements Page {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
-    constructor(router: Router, sessionRepository: SessionRepository) {
+    private _orientation: Orientation;
+    constructor(router: Router, sessionRepository: SessionRepository, orientation: Orientation) {
         this._router = router;
         this._sessionRepository = sessionRepository;
+        this._orientation = orientation;
     }
 
     //helper functions
@@ -43,9 +45,17 @@ class MainPage implements Page {
         // TODO: get initial orientation, ask to access the location and navigate to recording page.
     }
 
-    private onRecordClick() {
-        this._recordButton?.classList.add("d-none");
+    private async onRecordClick() {
         this._calibrationModal?.show();
+        const isOrientationPermissionGranted = await this._orientation.requestPermission();
+        if (isOrientationPermissionGranted) {
+            this._modalContent?.hideWaitingContent();
+            this._calibrationModal?.showButton();
+        } else {
+            // TODO: access blocked
+        }
+        this._recordButton?.classList.add("d-none");
+
     }
 
     private createRecordButton() {
@@ -59,19 +69,23 @@ class MainPage implements Page {
         return rec;
     }
 
+    private createModalContent() {
+        this._modalContent = new CalibrationContent();
+        return this._modalContent.element;
+    }
+
+    private _modalContent: CalibrationContent | undefined;
     private _calibrationModal: Modal | undefined;
     private _recordButton: HTMLElement | undefined;
     //drawing the page
     render(root: HTMLElement) {
         this._calibrationModal = new Modal({
             title: "Calibration",
-            createContent: function () {
-                const content = new CalibrationContent();
-                return content.element;
-            },
+            createContent: this.createModalContent.bind(this),
             buttonTitle: "Ready!",
             onButtonClick: this.onClickModalReady.bind(this),
-            onClose: this.onClickModalClose.bind(this)
+            onClose: this.onClickModalClose.bind(this),
+            isButtonVisible: false
         });
 
         this._recordButton = this.createRecordButton();
