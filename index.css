@@ -51,11 +51,15 @@ body {
 }
 
 .recording-page-div {
-    background-image: url(./images/bg2.jpg);
+    background-image: url(./images/bg2_subtle.jpg);
     background-position: top;
     height: 100%;
 }
 
 .recording-page-values {
     font-size: 60px;
+}
+
+.pt-6 {
+    padding-top: 58px;
 }

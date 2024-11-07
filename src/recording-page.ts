@@ -2,7 +2,7 @@ class RecordingPage implements Page {
 
     private createRecordingPageDiv() {
         const recordingPageDiv = document.createElement("div");
-        recordingPageDiv.classList.add("d-flex", "flex-column", "align-items-center", "justify-content-between", "flex-grow-1", "recording-page-div", "py-5");
+        recordingPageDiv.classList.add("d-flex", "flex-column", "align-items-center", "justify-content-between", "flex-grow-1", "recording-page-div", "pt-6", "pb-3");
 
         return recordingPageDiv;
     }
@@ -20,13 +20,14 @@ class RecordingPage implements Page {
         timeValue.classList.add("recording-page-values");
 
         time.append(timeTitle, timeValue);
-        time.classList.add("d-flex", "flex-column", "align-items-center");
+        time.classList.add("d-flex", "flex-column", "align-items-center", "w-100");
 
         return time;
     }
 
     private createGaugePart() {
         const canvas = document.createElement("canvas");
+        canvas.classList.add("w-100")
         canvas.id = "lean-angle";
         setAttributes(canvas, {
             "width": "380",
@@ -55,15 +56,15 @@ class RecordingPage implements Page {
         speedUnit.classList.add("fs-7");
 
         speed.append(speedTitle, speedValue, speedUnit);
-        speed.classList.add("d-flex", "flex-column", "align-items-center");
+        speed.classList.add("d-flex", "flex-column", "align-items-center", "w-100");
 
         return speed;
     }
 
     private createFinishButton() {
         const finishButton = document.createElement("button");
-        finishButton.innerHTML = '<i class="fa-solid fa-flag-checkered fa-xl" style="color: #000000;"></i>';
-        finishButton.classList.add("bg-secondary-subtle", "rounded-circle", "border", "border-0", "shadow", "p-3");
+        finishButton.innerHTML = '<i class="fa-solid fa-square fa-2xl" style="color: #ffffff;"></i>';
+        finishButton.classList.add("bg-danger", "rounded-circle", "border", "border-0", "shadow", "p-4");
 
         return finishButton;
     }
