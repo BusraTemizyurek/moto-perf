@@ -48,12 +48,14 @@ class MainPage implements Page {
                 beta: this._orientation.lastOrientation.beta ?? 0,
                 gamma: this._orientation.lastOrientation.gamma ?? 0
             }
+            console.log(initialOrientation);
             this._sessionRepository.initialOrientation = initialOrientation;
         }
-        // TODO: get initial orientation, ask to access the location and navigate to recording page.
+        this._router.navigate("recording");
     }
 
     private async onRecordClick() {
+        this._recordButton?.classList.add("d-none");
         this._calibrationModal?.show();
         const isOrientationPermissionGranted = await this._orientation.requestPermission();
         if (isOrientationPermissionGranted) {
@@ -62,7 +64,6 @@ class MainPage implements Page {
         } else {
             // TODO: access blocked
         }
-        this._recordButton?.classList.add("d-none");
     }
 
     private createRecordButton() {

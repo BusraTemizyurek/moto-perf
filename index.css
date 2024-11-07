@@ -45,3 +45,17 @@ body {
     background-image: url(./images/bg2.jpg);
     background-position: top;
 }
+
+.text-white {
+    color: white;
+}
+
+.recording-page-div {
+    background-image: url(./images/bg2.jpg);
+    background-position: top;
+    height: 100%;
+}
+
+.recording-page-values {
+    font-size: 60px;
+}
