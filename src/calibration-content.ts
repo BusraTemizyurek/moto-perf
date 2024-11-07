@@ -2,8 +2,12 @@ class CalibrationContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;
+    private readonly _orientation: Orientation;
+    private readonly _gauge: Gauge;
 
-    constructor() {
+    constructor(orientation: Orientation) {
+        this._orientation = orientation;
+
         const modalContent = document.createElement("div");
         modalContent.classList.add("d-flex", "flex-grow", "modal-content", "justify-content-center", "align-items-center")
         this._modalContent = modalContent;
@@ -35,13 +39,23 @@ class CalibrationContent {
             "width": "380",
             "height": "180"
         });
+        this._gauge = new Gauge(canvas, "#4d5154");
 
         modalContent.append(waitingPage, canvas);
     }
 
+    onOrientationUpdate(ev: DeviceOrientationEvent) {
+        if (ev.gamma) {
+            const angle = Math.ceil(ev.gamma);
+            this._gauge.draw(angle, getGaugeColor(angle));
+        }
+    }
+
     hideWaitingContent() {
         this._waitingContent.classList.add("d-none");
-        this._canvas.classList.remove("d-none")
+        this._canvas.classList.remove("d-none");
+
+        this._orientation.watch(this.onOrientationUpdate.bind(this));
     }
 
     get element() {

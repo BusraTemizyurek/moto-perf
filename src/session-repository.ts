@@ -6,9 +6,15 @@ interface SerializedSession {
     maxLeanAngle: number
 }
 
+interface InitialOrientation {
+    alpha: number,
+    beta: number,
+    gamma: number
+}
+
 class SessionRepository {
     private _sessions: Session[] = [];
-
+    private _initialOrientation: InitialOrientation | undefined;
     constructor() {
         const sessions = localStorage.getItem("sessions");
         if (sessions) {
@@ -23,6 +29,10 @@ class SessionRepository {
                 });
             }
         }
+    }
+
+    set initialOrientation(initialOrientation: InitialOrientation) {
+        this._initialOrientation = initialOrientation;
     }
 
     get sessions() {

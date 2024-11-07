@@ -53,28 +53,21 @@ class Gauge {
 
         if (angle < 0) {
             x -= 20;
-            console.log("negative");
 
             if (angle > -10) {
-                console.log("1 digit number");
                 x -= 18;
             } else {
-                console.log("2 digit number");
                 x -= 35;
             }
         }
         else if (angle > 0) {
-            console.log("positive");
             if (angle > 9) {
-                console.log("2 digit number");
                 x -= 35;
             } else {
-                console.log("1 digit number");
                 x -= 10;
             }
         }
         else {
-            console.log("number is 0");
             x -= 18;
         }
 
@@ -89,7 +82,6 @@ class Gauge {
 
     }
 
-
     draw(angle: number, color = "lightgreen") {
         //Clear the canvas everytime a chart is drawn
         this._ctx.clearRect(0, 0, this._W, this._H);
@@ -99,12 +91,4 @@ class Gauge {
         this.drawIndicator(angle, color);
         this.drawAngleText(angle);
     };
-
 }
-
-// window.onload = function () {
-//     // Caller
-//     const canvas = document.getElementById("canvas");
-//     const gauge = new Gauge(canvas);
-//     gauge.draw(-9);
-// }
