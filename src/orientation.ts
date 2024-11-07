@@ -10,6 +10,24 @@ class Orientation {
         }
 
         return true;
-        // window.addEventListener('deviceorientation', () => { });
+    }
+
+    private _lastOrientation: DeviceOrientationEvent | undefined;
+
+    get lastOrientation() {
+        return this._lastOrientation;
+    }
+
+    private createOnOrientationUpdate(listener: (event: DeviceOrientationEvent) => void) {
+        return (ev: DeviceOrientationEvent) => {
+            this._lastOrientation = ev;
+            listener(ev);
+        }
+    }
+
+    public watch(listener: (event: DeviceOrientationEvent) => void) {
+        const handler = this.createOnOrientationUpdate(listener).bind(this)
+
+        window.addEventListener('deviceorientation', handler);
     }
 }

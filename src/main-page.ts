@@ -38,10 +38,18 @@ class MainPage implements Page {
         this._recordButton?.classList.remove("d-none");
     }
 
-
     private onClickModalReady() {
         this._calibrationModal?.hide();
         this._recordButton?.classList.remove("d-none");
+
+        if (this._orientation.lastOrientation) {
+            const initialOrientation = {
+                alpha: this._orientation.lastOrientation.alpha ?? 0,
+                beta: this._orientation.lastOrientation.beta ?? 0,
+                gamma: this._orientation.lastOrientation.gamma ?? 0
+            }
+            this._sessionRepository.initialOrientation = initialOrientation;
+        }
         // TODO: get initial orientation, ask to access the location and navigate to recording page.
     }
 
@@ -55,7 +63,6 @@ class MainPage implements Page {
             // TODO: access blocked
         }
         this._recordButton?.classList.add("d-none");
-
     }
 
     private createRecordButton() {
@@ -70,7 +77,7 @@ class MainPage implements Page {
     }
 
     private createModalContent() {
-        this._modalContent = new CalibrationContent();
+        this._modalContent = new CalibrationContent(this._orientation);
         return this._modalContent.element;
     }
 
