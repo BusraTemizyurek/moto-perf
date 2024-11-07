@@ -1,4 +1,9 @@
 class RecordingPage implements Page {
+    private readonly _location: LocationManager;
+
+    constructor(location: LocationManager) {
+        this._location = location;
+    }
 
     private createRecordingPageDiv() {
         const recordingPageDiv = document.createElement("div");
@@ -71,7 +76,13 @@ class RecordingPage implements Page {
 
     render(root: HTMLElement) {
         const recordingPageDiv = this.createRecordingPageDiv();
-        recordingPageDiv.append(this.createTimePart(), this.createGaugePart(), this.createSpeedPart(), this.createFinishButton());
+
+        if (this._location.isLocationAccessGranted) {
+            recordingPageDiv.append(this.createTimePart(), this.createGaugePart(), this.createSpeedPart(), this.createFinishButton());
+        } else {
+            recordingPageDiv.append(this.createGaugePart(), this.createFinishButton());
+            recordingPageDiv.classList.add("pt-16");
+        }
         recordingPageDiv.classList.add("text-white");
         root.append(recordingPageDiv);
     }

@@ -2,10 +2,10 @@ class CalibrationContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;
-    private readonly _orientation: Orientation;
+    private readonly _orientation: OrientationManager;
     private readonly _gauge: Gauge;
 
-    constructor(orientation: Orientation) {
+    constructor(orientation: OrientationManager) {
         this._orientation = orientation;
 
         const modalContent = document.createElement("div");

@@ -1,11 +1,13 @@
 class MainPage implements Page {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
-    private _orientation: Orientation;
-    constructor(router: Router, sessionRepository: SessionRepository, orientation: Orientation) {
+    private _orientation: OrientationManager;
+    private _location: LocationManager;
+    constructor(router: Router, sessionRepository: SessionRepository, orientation: OrientationManager, location: LocationManager) {
         this._router = router;
         this._sessionRepository = sessionRepository;
         this._orientation = orientation;
+        this._location = location;
     }
 
     //helper functions
@@ -38,10 +40,7 @@ class MainPage implements Page {
         this._recordButton?.classList.remove("d-none");
     }
 
-    private onClickModalReady() {
-        this._calibrationModal?.hide();
-        this._recordButton?.classList.remove("d-none");
-
+    private async onClickModalReady() {
         if (this._orientation.lastOrientation) {
             const initialOrientation = {
                 alpha: this._orientation.lastOrientation.alpha ?? 0,
@@ -51,6 +50,21 @@ class MainPage implements Page {
             console.log(initialOrientation);
             this._sessionRepository.initialOrientation = initialOrientation;
         }
+
+        // TODO: user will be informed about the location access
+        alert("Allow location access to see your ride analysis and map. Without it, only lean angle data will be available.")
+        const isLocationPermissionGranted = await this._location.requestPermission();
+
+        if (!isLocationPermissionGranted) {
+            console.log("denied");
+            //permission denied
+        } else {
+            console.log("granted");
+            //permission granted
+        }
+
+        this._calibrationModal?.hide();
+        this._recordButton?.classList.remove("d-none");
         this._router.navigate("recording");
     }
 

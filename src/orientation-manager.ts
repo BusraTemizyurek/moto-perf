@@ -1,4 +1,4 @@
-class Orientation {
+class OrientationManager {
     async requestPermission() {
         if ('requestPermission' in DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
             // Handle iOS 13+ devices.
