@@ -2,11 +2,11 @@ class CalibrationContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;
-    private readonly _orientation: OrientationManager;
+    private readonly _orientationManager: OrientationManager;
     private readonly _gauge: Gauge;
 
-    constructor(orientation: OrientationManager) {
-        this._orientation = orientation;
+    constructor(orientationManager: OrientationManager) {
+        this._orientationManager = orientationManager;
 
         const modalContent = document.createElement("div");
         modalContent.classList.add("d-flex", "flex-grow", "modal-content", "justify-content-center", "align-items-center")
@@ -57,7 +57,7 @@ class CalibrationContent {
 
         //to start a gauge with angle 0 even orientation is closed at first.
         this._gauge.draw(0, getGaugeColor(0));
-        this._orientation.watch(this.onOrientationUpdate.bind(this));
+        this._orientationManager.watch(this.onOrientationUpdate.bind(this));
     }
 
     get element() {

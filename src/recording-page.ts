@@ -1,8 +1,8 @@
 class RecordingPage implements Page {
-    private readonly _location: LocationManager;
+    private readonly _locationManager: LocationManager;
 
     constructor(location: LocationManager) {
-        this._location = location;
+        this._locationManager = location;
     }
 
     private createRecordingPageDiv() {
@@ -68,7 +68,10 @@ class RecordingPage implements Page {
 
     private createFinishButton() {
         const finishButton = document.createElement("button");
-        finishButton.innerHTML = '<i class="fa-solid fa-square fa-2xl" style="color: #ffffff;"></i>';
+        const icon = document.createElement("i");
+        icon.classList.add("fa-solid", "fa-square", "fa-2xl");
+        icon.setAttribute("style", "color: #ffffff;");
+        finishButton.append(icon);
         finishButton.classList.add("bg-danger", "rounded-circle", "border", "border-0", "shadow", "p-4");
 
         return finishButton;
@@ -77,7 +80,7 @@ class RecordingPage implements Page {
     render(root: HTMLElement) {
         const recordingPageDiv = this.createRecordingPageDiv();
 
-        if (this._location.isLocationAccessGranted) {
+        if (this._locationManager.isLocationAccessGranted) {
             recordingPageDiv.append(this.createTimePart(), this.createGaugePart(), this.createSpeedPart(), this.createFinishButton());
         } else {
             recordingPageDiv.append(this.createGaugePart(), this.createFinishButton());
