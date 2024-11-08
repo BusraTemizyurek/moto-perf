@@ -1,4 +1,4 @@
-class CalibrationContent {
+class CalibrationModalContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;
@@ -24,7 +24,7 @@ class CalibrationContent {
         waitingPage.append(spinner);
 
         const messageDiv = document.createElement("div");
-        messageDiv.innerText = "Please hold on while we grant orientation access.";
+        messageDiv.innerText = "Please hold on while we grant access.";
         messageDiv.classList.add("mt-3", "text-white", "text-center");
         waitingPage.append(messageDiv);
         waitingPage.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
@@ -58,6 +58,11 @@ class CalibrationContent {
         //to start a gauge with angle 0 even orientation is closed at first.
         this._gauge.draw(0, getGaugeColor(0));
         this._orientationManager.watch(this.onOrientationUpdate.bind(this));
+    }
+
+    showWaitingContent() {
+        this._waitingContent.classList.remove("d-none");
+        this._canvas.classList.add("d-none");
     }
 
     get element() {
