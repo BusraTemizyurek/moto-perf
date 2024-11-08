@@ -91,14 +91,14 @@ window.onload = () => {
         throw new Error("No root element available");
     }
 
-    const orientation = new Orientation();
+    const orientationManager = new OrientationManager();
+    const locationManager = new LocationManager();
 
     const router = new Router(root);
-
-    const mainPage = new MainPage(router, sessionRepository, orientation);
+    const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager);
     router.register("main", mainPage);
 
-    const recordingPage = new RecordingPage();
+    const recordingPage = new RecordingPage(locationManager);
     router.register("recording", recordingPage);
 
     router.navigate("main");

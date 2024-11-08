@@ -45,3 +45,61 @@ body {
     background-image: url(./images/bg2.jpg);
     background-position: top;
 }
+
+.text-white {
+    color: white;
+}
+
+.recording-page-div {
+    background-image: url(./images/bg2_subtle.jpg);
+    background-position: top;
+    height: 100%;
+}
+
+.recording-page-values {
+    font-size: 60px;
+}
+
+.pt-6 {
+    padding-top: 58px;
+}
+
+.pt-7 {
+    padding-top: 68px;
+}
+
+.pt-8 {
+    padding-top: 78px;
+}
+
+.pt-9 {
+    padding-top: 88px;
+}
+
+.pt-10 {
+    padding-top: 98px;
+}
+
+.pt-11 {
+    padding-top: 118px;
+}
+
+.pt-12 {
+    padding-top: 138px;
+}
+
+.pt-13 {
+    padding-top: 158px;
+}
+
+.pt-14 {
+    padding-top: 178px;
+}
+
+.pt-15 {
+    padding-top: 198px;
+}
+
+.pt-16 {
+    padding-top: 228px;
+}

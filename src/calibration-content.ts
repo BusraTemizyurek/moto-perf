@@ -2,11 +2,11 @@ class CalibrationContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;
-    private readonly _orientation: Orientation;
+    private readonly _orientationManager: OrientationManager;
     private readonly _gauge: Gauge;
 
-    constructor(orientation: Orientation) {
-        this._orientation = orientation;
+    constructor(orientationManager: OrientationManager) {
+        this._orientationManager = orientationManager;
 
         const modalContent = document.createElement("div");
         modalContent.classList.add("d-flex", "flex-grow", "modal-content", "justify-content-center", "align-items-center")
@@ -16,7 +16,7 @@ class CalibrationContent {
         const waitingPage = document.createElement("div");
         this._waitingContent = waitingPage;
         const spinner = document.createElement("div");
-        spinner.classList.add("spinner-border");
+        spinner.classList.add("spinner-border", "text-light");
         spinner.setAttribute("role", "status");
         const hiddenLoading = document.createElement("span");
         hiddenLoading.classList.add("visually-hidden");
@@ -25,7 +25,7 @@ class CalibrationContent {
 
         const messageDiv = document.createElement("div");
         messageDiv.innerText = "Please hold on while we grant orientation access.";
-        messageDiv.classList.add("mt-3");
+        messageDiv.classList.add("mt-3", "text-white", "text-center");
         waitingPage.append(messageDiv);
         waitingPage.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
@@ -55,7 +55,9 @@ class CalibrationContent {
         this._waitingContent.classList.add("d-none");
         this._canvas.classList.remove("d-none");
 
-        this._orientation.watch(this.onOrientationUpdate.bind(this));
+        //to start a gauge with angle 0 even orientation is closed at first.
+        this._gauge.draw(0, getGaugeColor(0));
+        this._orientationManager.watch(this.onOrientationUpdate.bind(this));
     }
 
     get element() {

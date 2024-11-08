@@ -36,7 +36,7 @@ class Modal {
         content.append(modalHeader);
 
         const modalTitle = document.createElement("h1");
-        modalTitle.classList.add("modal-title", "fs-5");
+        modalTitle.classList.add("modal-title", "fs-5", "text-white");
         modalTitle.innerText = this._options.title;
 
         const closeButton = document.createElement("button");
