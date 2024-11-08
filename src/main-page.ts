@@ -40,32 +40,57 @@ class MainPage implements Page {
         this._recordButton?.classList.remove("d-none");
     }
 
-    private async onClickModalReady() {
-        if (this._orientationManager.lastOrientation) {
-            const initialOrientation = {
-                alpha: this._orientationManager.lastOrientation.alpha ?? 0,
-                beta: this._orientationManager.lastOrientation.beta ?? 0,
-                gamma: this._orientationManager.lastOrientation.gamma ?? 0
+    private onClickModalReady(ev: ButtonMouseEvent) {
+        ev.target.disabled = true;
+        //popover content
+        const popoverHeading = document.createElement("div");
+        popoverHeading.innerText = "Remember!";
+
+        const popoverBody = document.createElement("div");
+        const popoverBodyContent = document.createElement("div");
+        popoverBodyContent.innerText = "Enable location access to unlock ride analysis and map features. Without location, only lean angle data will be available."
+
+        const popoverButton = document.createElement("button");
+        popoverButton.innerText = "Got it!"
+        popoverButton.classList.add("btn", "btn-primary", "mx-auto");
+        popoverBody.append(popoverBodyContent, popoverButton);
+
+        const popover = new bootstrap.Popover(ev.target, {
+            html: true,
+            title: popoverHeading,
+            content: popoverBody,
+            trigger: "click"
+        })
+        popover.show();
+
+        popoverButton.onclick = async () => {
+            popover.hide();
+            if (this._orientationManager.lastOrientation) {
+                const initialOrientation = {
+                    alpha: this._orientationManager.lastOrientation.alpha ?? 0,
+                    beta: this._orientationManager.lastOrientation.beta ?? 0,
+                    gamma: this._orientationManager.lastOrientation.gamma ?? 0
+                }
+                console.log(initialOrientation);
+                this._sessionRepository.initialOrientation = initialOrientation;
             }
-            console.log(initialOrientation);
-            this._sessionRepository.initialOrientation = initialOrientation;
+
+            this._calibrationModal?.hideButton();
+            this._calibrationModalContent?.showWaitingContent();
+            const isLocationPermissionGranted = await this._locationManager.requestPermission();
+
+            if (!isLocationPermissionGranted) {
+                console.log("denied");
+                //permission denied
+            } else {
+                console.log("granted");
+                //permission granted
+            }
+
+            this._calibrationModal?.hide();
+            this._recordButton?.classList.remove("d-none");
+            this._router.navigate("recording");
         }
-
-        // TODO: user will be informed about the location access
-        alert("Allow location access to see your ride analysis and map. Without it, only lean angle data will be available.")
-        const isLocationPermissionGranted = await this._locationManager.requestPermission();
-
-        if (!isLocationPermissionGranted) {
-            console.log("denied");
-            //permission denied
-        } else {
-            console.log("granted");
-            //permission granted
-        }
-
-        this._calibrationModal?.hide();
-        this._recordButton?.classList.remove("d-none");
-        this._router.navigate("recording");
     }
 
     private async onRecordClick() {
@@ -73,7 +98,7 @@ class MainPage implements Page {
         this._calibrationModal?.show();
         const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
         if (isOrientationPermissionGranted) {
-            this._modalContent?.hideWaitingContent();
+            this._calibrationModalContent?.hideWaitingContent();
             this._calibrationModal?.showButton();
         } else {
             // TODO: access blocked
@@ -92,11 +117,11 @@ class MainPage implements Page {
     }
 
     private createModalContent() {
-        this._modalContent = new CalibrationContent(this._orientationManager);
-        return this._modalContent.element;
+        this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
+        return this._calibrationModalContent.element;
     }
 
-    private _modalContent: CalibrationContent | undefined;
+    private _calibrationModalContent: CalibrationModalContent | undefined;
     private _calibrationModal: Modal | undefined;
     private _recordButton: HTMLElement | undefined;
     //drawing the page

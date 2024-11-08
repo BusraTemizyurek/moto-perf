@@ -1,9 +1,15 @@
+type HTMLMouseEvent<T extends HTMLElement> = Omit<MouseEvent, 'target'> & {
+    target: T
+};
+
+type ButtonMouseEvent = HTMLMouseEvent<HTMLButtonElement>;
+
 interface ModalOptions {
     title: string,
     onClose: () => void,
     createContent: () => HTMLElement,
     buttonTitle: string,
-    onButtonClick: () => void,
+    onButtonClick: (ev: ButtonMouseEvent) => void,
     isButtonVisible: boolean
 }
 
@@ -58,13 +64,15 @@ class Modal {
 
         const button = document.createElement("button");
         this._button = button;
+        button.onclick = (ev) => {
+            this._options.onButtonClick(ev as ButtonMouseEvent);
+        }
         if (!this._options.isButtonVisible) {
             button.classList.add("d-none");
         }
         button.classList.add("btn", "btn-success");
         button.type = "button";
         button.innerText = this._options.buttonTitle;
-        button.onclick = this._options.onButtonClick;
         footer.append(button);
 
         return modal;
@@ -74,6 +82,13 @@ class Modal {
         this._options.isButtonVisible = true;
         if (this._button) {
             this._button.classList.remove("d-none");
+        }
+    }
+
+    hideButton() {
+        this._options.isButtonVisible = false;
+        if (this._button) {
+            this._button.classList.add("d-none");
         }
     }
 
