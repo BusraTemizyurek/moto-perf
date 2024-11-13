@@ -40,10 +40,13 @@ body {
     height: 120px;
 }
 
-.modal-content {
-    height: 100%;
+.modal-bg {
     background-image: url(./images/bg2.jpg);
     background-position: top;
+}
+
+.modal-content-div {
+    height: 100%;
 }
 
 .text-white {
