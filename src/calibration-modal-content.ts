@@ -10,7 +10,7 @@ class CalibrationModalContent {
         this._orientationManager = orientationManager;
 
         const modalContent = document.createElement("div");
-        modalContent.classList.add("d-flex", "flex-grow", "modal-content-div", "justify-content-center", "align-items-center")
+        modalContent.classList.add("d-flex", "flex-grow", "h-100", "justify-content-center", "align-items-center")
         this._modalContent = modalContent;
 
         //waiting page
