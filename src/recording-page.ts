@@ -1,11 +1,3 @@
-interface Point {
-    latitude: number,
-    longitude: number,
-    timestamp: number,
-    speed: number,
-    distance: number,
-}
-
 class RecordingPage implements Page {
     private readonly _locationManager: LocationManager;
     private readonly _orientationManager: OrientationManager;

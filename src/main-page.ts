@@ -87,7 +87,6 @@ class MainPage implements Page {
 
             this._calibrationModal?.hide();
             this._recordButton?.classList.remove("d-none");
-
             this._router.navigate("recording");
         }
     }
