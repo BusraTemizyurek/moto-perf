@@ -34,7 +34,7 @@ class Modal {
         modal.append(modalDialog);
 
         const content = document.createElement("div");
-        content.classList.add("modal-content");
+        content.classList.add("modal-content", "modal-bg");
         modalDialog.append(content);
 
         const modalHeader = document.createElement("div");
