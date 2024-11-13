@@ -18,7 +18,8 @@ class SessionDraft {
     addOrientation(orientationEvent: DeviceOrientationEvent) {
         console.log("orientation added");
         const correctedGamma = orientationEvent.gamma ? orientationEvent.gamma - this._initialGamma : 0;
-        this._orientations.push(correctedGamma);
+        const correctedGammaWith90deg = correctedGamma > 90 ? 90 : correctedGamma < -90 ? -90 : correctedGamma;
+        this._orientations.push(correctedGammaWith90deg);
     }
 
     addLocation(position: GeolocationPosition) {
