@@ -83,7 +83,6 @@ function seedData() {
 }
 seedData();
 
-
 window.onload = () => {
     const sessionRepository = new SessionRepository();
     const root = document.getElementById("root");
@@ -98,8 +97,11 @@ window.onload = () => {
     const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager);
     router.register("main", mainPage);
 
-    const recordingPage = new RecordingPage(locationManager);
+    const recordingPage = new RecordingPage(locationManager, orientationManager, router);
     router.register("recording", recordingPage);
+
+    const summaryPage = new SummaryPage();
+    router.register("summary", summaryPage);
 
     router.navigate("main");
 }

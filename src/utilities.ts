@@ -11,7 +11,6 @@ function convertTimeToDayDivision(date: Date) {
     return "Night Ride";
 }
 
-// ex: "November 3, 2024 at 6:42 pm."
 function formatDate(date: Date) {
     return date.toLocaleString("en-US", {
         month: "long",
@@ -28,4 +27,20 @@ function setAttributes(element: HTMLElement, attributes: Record<string, string> 
     for (const [key, value] of attributeArray) {
         element.setAttribute(key, value);
     }
+}
+
+function convertTimeStampToTime(elapsedTime: number) {
+    const sec = elapsedTime / 1000;
+
+    let seconds = Math.floor(sec % 60).toString().padStart(2, "0");
+    let minutes = Math.floor((sec / 60) % 60).toString().padStart(2, "0");
+    let hours = Math.floor(sec / (60 * 60)).toString().padStart(2, "0");
+
+    const time = {
+        hours,
+        minutes,
+        seconds
+    }
+
+    return time;
 }

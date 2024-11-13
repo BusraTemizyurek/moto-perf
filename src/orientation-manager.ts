@@ -1,3 +1,5 @@
+type OrientationWatcher = (event: DeviceOrientationEvent) => void
+
 class OrientationManager {
     async requestPermission() {
         if ('requestPermission' in DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
@@ -18,16 +20,17 @@ class OrientationManager {
         return this._lastOrientation;
     }
 
-    private createOnOrientationUpdate(listener: (event: DeviceOrientationEvent) => void) {
-        return (ev: DeviceOrientationEvent) => {
-            this._lastOrientation = ev;
-            listener(ev);
+    watch(listener: OrientationWatcher) {
+        const handler = (event: DeviceOrientationEvent) => {
+            this._lastOrientation = event;
+            listener(event);
         }
+        window.addEventListener('deviceorientation', handler);
+
+        return handler;
     }
 
-    public watch(listener: (event: DeviceOrientationEvent) => void) {
-        const handler = this.createOnOrientationUpdate(listener).bind(this)
-
-        window.addEventListener('deviceorientation', handler);
+    unwatch(listener: OrientationWatcher) {
+        window.removeEventListener("deviceorientation", listener)
     }
 }
