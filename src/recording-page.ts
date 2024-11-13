@@ -43,6 +43,7 @@ class RecordingPage implements Page {
         timeTitle.innerText = "TIME";
         timeTitle.classList.add("fs-7");
 
+        timeValue.innerText = "00:00:00";
         this.startTimer(timeValue);
         timeValue.classList.add("recording-page-values");
 
