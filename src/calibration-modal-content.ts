@@ -4,6 +4,7 @@ class CalibrationModalContent {
     private readonly _canvas: HTMLCanvasElement;
     private readonly _orientationManager: OrientationManager;
     private readonly _gauge: Gauge;
+    private _watchHandler: OrientationWatcher | undefined;
 
     constructor(orientationManager: OrientationManager) {
         this._orientationManager = orientationManager;
@@ -28,7 +29,6 @@ class CalibrationModalContent {
         messageDiv.classList.add("mt-3", "text-white", "text-center");
         waitingPage.append(messageDiv);
         waitingPage.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
-
 
         //calibration page
         const canvas = document.createElement("canvas");
@@ -57,7 +57,12 @@ class CalibrationModalContent {
 
         //to start a gauge with angle 0 even orientation is closed at first.
         this._gauge.draw(0, getGaugeColor(0));
-        this._orientationManager.watch(this.onOrientationUpdate.bind(this));
+        const watchHandler = this._orientationManager.watch(this.onOrientationUpdate.bind(this));
+        this._watchHandler = watchHandler;
+    }
+
+    get watchHandler() {
+        return this._watchHandler;
     }
 
     showWaitingContent() {

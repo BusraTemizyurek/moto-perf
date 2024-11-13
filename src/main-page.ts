@@ -3,6 +3,10 @@ class MainPage implements Page {
     private readonly _sessionRepository: SessionRepository;
     private readonly _orientationManager: OrientationManager;
     private readonly _locationManager: LocationManager;
+    private _calibrationModalContent: CalibrationModalContent | undefined;
+    private _calibrationModal: Modal | undefined;
+    private _recordButton: HTMLElement | undefined;
+
     constructor(router: Router, sessionRepository: SessionRepository, orientationManager: OrientationManager, locationManager: LocationManager) {
         this._router = router;
         this._sessionRepository = sessionRepository;
@@ -65,14 +69,8 @@ class MainPage implements Page {
 
         popoverButton.onclick = async () => {
             popover.hide();
-            if (this._orientationManager.lastOrientation) {
-                const initialOrientation = {
-                    alpha: this._orientationManager.lastOrientation.alpha ?? 0,
-                    beta: this._orientationManager.lastOrientation.beta ?? 0,
-                    gamma: this._orientationManager.lastOrientation.gamma ?? 0
-                }
-                console.log(initialOrientation);
-                this._sessionRepository.initialOrientation = initialOrientation;
+            if (this._calibrationModalContent?.watchHandler) {
+                this._orientationManager.unwatch(this._calibrationModalContent.watchHandler);
             }
 
             this._calibrationModal?.hideButton();
@@ -89,6 +87,7 @@ class MainPage implements Page {
 
             this._calibrationModal?.hide();
             this._recordButton?.classList.remove("d-none");
+
             this._router.navigate("recording");
         }
     }
@@ -121,9 +120,6 @@ class MainPage implements Page {
         return this._calibrationModalContent.element;
     }
 
-    private _calibrationModalContent: CalibrationModalContent | undefined;
-    private _calibrationModal: Modal | undefined;
-    private _recordButton: HTMLElement | undefined;
     //drawing the page
     render(root: HTMLElement) {
         this._calibrationModal = new Modal({

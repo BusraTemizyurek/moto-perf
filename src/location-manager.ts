@@ -1,5 +1,6 @@
 class LocationManager {
     private _isLocationAccessGranted: boolean = false;
+    private _watchId: number | undefined;
 
     async requestPermission() {
         return new Promise<boolean>((resolve) => {
@@ -23,7 +24,14 @@ class LocationManager {
         return this._isLocationAccessGranted;
     }
 
-    // watchPosition() {
-    //     TODO: watchID will be created
-    // }
+    watchPosition(onNewPositionReported: PositionCallback, onErrorWatchPosition: PositionErrorCallback) {
+        const watchId = navigator.geolocation.watchPosition(onNewPositionReported, onErrorWatchPosition);
+        this._watchId = watchId;
+    }
+
+    stopWatch() {
+        if (this._watchId) {
+            navigator.geolocation.clearWatch(this._watchId);
+        }
+    }
 }

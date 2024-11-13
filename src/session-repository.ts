@@ -3,18 +3,12 @@ interface SerializedSession {
     distance: number,
     speed: number,
     duration: number,
-    maxLeanAngle: number
-}
-
-interface InitialOrientation {
-    alpha: number,
-    beta: number,
-    gamma: number
+    maxLeanAngle: number,
+    points?: Point[]
 }
 
 class SessionRepository {
     private _sessions: Session[] = [];
-    private _initialOrientation: InitialOrientation | undefined;
     constructor() {
         const sessions = localStorage.getItem("sessions");
         if (sessions) {
@@ -25,14 +19,11 @@ class SessionRepository {
                     distance: session.distance,
                     speed: session.speed,
                     duration: session.duration,
-                    maxLeanAngle: session.maxLeanAngle
+                    maxLeanAngle: session.maxLeanAngle,
+                    points: session.points ?? []
                 });
             }
         }
-    }
-
-    set initialOrientation(initialOrientation: InitialOrientation) {
-        this._initialOrientation = initialOrientation;
     }
 
     get sessions() {
