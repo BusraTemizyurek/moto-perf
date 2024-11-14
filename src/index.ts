@@ -100,7 +100,7 @@ window.onload = () => {
     const recordingPage = new RecordingPage(locationManager, orientationManager, router);
     router.register("recording", recordingPage);
 
-    const summaryPage = new SummaryPage();
+    const summaryPage = new SummaryPage(router, sessionRepository);
     router.register("summary", summaryPage);
 
     router.navigate("main");

@@ -9,6 +9,7 @@ interface SerializedSession {
 
 class SessionRepository {
     private _sessions: Session[] = [];
+
     constructor() {
         const sessions = localStorage.getItem("sessions");
         if (sessions) {
@@ -24,6 +25,11 @@ class SessionRepository {
                 });
             }
         }
+    }
+
+    addSession(session: Session) {
+        this.sessions.push(session);
+        localStorage.setItem("sessions", JSON.stringify(this.sessions));
     }
 
     get sessions() {
