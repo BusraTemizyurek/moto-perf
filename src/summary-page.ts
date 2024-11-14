@@ -14,13 +14,13 @@ class SummaryPage implements Page<SummaryPageOptions> {
 
     private createPageDiv() {
         const page = document.createElement("div");
-        page.classList.add("h-100", "d-flex", "flex-column", "justify-content-center");
+        page.classList.add("h-100", "d-flex", "flex-column", "justify-content-center", "bg-body-tertiary");
         return page;
     }
 
     private createHeader() {
         const headerDiv = document.createElement("div");
-        headerDiv.classList.add("w-100", "h-20", "fs-5", "fw-bold", "d-flex", "p-2", "justify-content-center", "bg-secondary-subtle");
+        headerDiv.classList.add("w-100", "h-20", "fs-5", "fw-bold", "d-flex", "p-2", "justify-content-center", "bg-body");
         headerDiv.innerHTML = "Ride Details";
 
         return headerDiv;
