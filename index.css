@@ -59,6 +59,22 @@ body {
     font-size: 60px;
 }
 
+.fs-big-1 {
+    font-size: 60px;
+}
+
+.fs-big-2 {
+    font-size: 50px;
+}
+
+.fs-big-3 {
+    font-size: 40px;
+}
+
+.fs-big-4 {
+    font-size: 35px;
+}
+
 .pt-6 {
     padding-top: 58px;
 }
@@ -101,4 +117,13 @@ body {
 
 .pt-16 {
     padding-top: 228px;
+}
+
+.summary-images {
+    height: 60px;
+    width: 60px;
+}
+
+.summary-buttons {
+    height: 50px;
 }

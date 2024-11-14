@@ -25,7 +25,7 @@ class MainPage implements Page {
     private createCardList(sessions: Session[]) {
         const cardList = document.createElement("div");
         cardList.id = "card-list";
-        cardList.classList.add("main-cardlist-div", "flex-grow");
+        cardList.classList.add("main-cardlist-div", "flex-grow", "bg-body-secondary");
 
         if (sessions.length === 0) {
             const noRideCard = new NoRideCard();
