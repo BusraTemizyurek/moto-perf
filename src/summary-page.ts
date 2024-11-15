@@ -14,7 +14,7 @@ class SummaryPage implements Page<SummaryPageOptions> {
 
     private createPageDiv() {
         const page = document.createElement("div");
-        page.classList.add("h-100", "d-flex", "flex-column", "justify-content-center", "bg-body-tertiary");
+        page.classList.add("h-100", "d-flex", "flex-column", "justify-content-center", "bg-body-secondary");
         return page;
     }
 
@@ -28,7 +28,7 @@ class SummaryPage implements Page<SummaryPageOptions> {
 
     private createBody(dateVal: Date, distanceValue: number, speedValue: number, durationValue: number, maxLeanAngleValue: number) {
         const summaryBody = document.createElement("div");
-        summaryBody.classList.add("d-flex", "flex-column", "flex-start", "gap-5", "flex-grow-1");
+        summaryBody.classList.add("d-flex", "flex-column", "flex-start", "gap-5", "flex-grow-1", "bg-body", "mt-1");
 
         const date = document.createElement("div");
         const dateIcon = document.createElement("i");
