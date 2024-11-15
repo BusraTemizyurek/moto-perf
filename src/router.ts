@@ -1,4 +1,6 @@
-class Router {
+import type { Page } from "./types";
+
+export class Router {
     private readonly _root: HTMLElement;
     private readonly _map = new Map<string, Page>();
 

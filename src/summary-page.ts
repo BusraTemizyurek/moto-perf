@@ -1,8 +1,13 @@
+import type { Router } from "./router";
+import type { SessionRepository } from "./session-repository";
+import type { Session, Page } from "./types";
+import { convertTimeStampToTime, formatDate, formatDuration } from "./utilities";
+
 interface SummaryPageOptions {
     session: Session
 }
 
-class SummaryPage implements Page<SummaryPageOptions> {
+export class SummaryPage implements Page<SummaryPageOptions> {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
     private _options: SummaryPageOptions | undefined;

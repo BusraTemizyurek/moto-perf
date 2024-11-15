@@ -1,4 +1,7 @@
-class RideCard {
+import type { Session } from "./types";
+import { convertTimeToDayDivision, formatDate, formatDuration, convertTimeStampToTime } from "./utilities";
+
+export class RideCard {
     private _cardDiv: HTMLDivElement;
 
     constructor(session: Session) {

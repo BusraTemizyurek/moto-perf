@@ -1,10 +1,10 @@
-type HTMLMouseEvent<T extends HTMLElement> = Omit<MouseEvent, 'target'> & {
+export type HTMLMouseEvent<T extends HTMLElement> = Omit<MouseEvent, 'target'> & {
     target: T
 };
 
-type ButtonMouseEvent = HTMLMouseEvent<HTMLButtonElement>;
+export type ButtonMouseEvent = HTMLMouseEvent<HTMLButtonElement>;
 
-interface ModalOptions {
+export interface ModalOptions {
     title: string,
     onClose: () => void,
     createContent: () => HTMLElement,
@@ -14,7 +14,7 @@ interface ModalOptions {
 }
 
 //full screen modal
-class Modal {
+export class Modal {
     private _bootstrapModal: bootstrap.Modal | undefined;
     private readonly _options: ModalOptions;
     private _button: HTMLElement | undefined;

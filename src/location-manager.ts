@@ -1,4 +1,4 @@
-class LocationManager {
+export class LocationManager {
     private _isLocationAccessGranted: boolean = false;
     private _watchId: number | undefined;
 

@@ -1,4 +1,4 @@
-class Gauge {
+export class Gauge {
     private readonly _bgcolor: string = "#222";
     private readonly _W: number;
     private readonly _H: number;

@@ -1,8 +1,8 @@
-interface Page<TOptions = unknown> {
+export interface Page<TOptions = unknown> {
     render: (root: HTMLElement, options?: TOptions) => void
 }
 
-interface Point {
+export interface Point {
     date: number,
     latitude: number,
     longitude: number,
@@ -12,7 +12,7 @@ interface Point {
     gamma: number,
 }
 
-interface Session {
+export interface Session {
     date: Date,
     distance: number,
     speed: number,

@@ -1,3 +1,14 @@
+// TODO: Remove request-permission-polyfil before going to production
+import "./request-permission-polyfil";
+
+import { SessionRepository } from "./session-repository";
+import { OrientationManager } from "./orientation-manager";
+import { LocationManager } from "./location-manager";
+import { Router } from "./router";
+import { MainPage } from "./main-page";
+import { RecordingPage } from "./recording-page";
+import { SummaryPage } from "./summary-page";
+
 document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
