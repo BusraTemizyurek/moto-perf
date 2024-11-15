@@ -1,3 +1,9 @@
+interface Time {
+    hours: string,
+    minutes: string,
+    seconds: string
+}
+
 function convertTimeToDayDivision(date: Date) {
     const timeRange = date.getHours();
 
@@ -36,11 +42,18 @@ function convertTimeStampToTime(elapsedTime: number) {
     let minutes = Math.floor((sec / 60) % 60).toString().padStart(2, "0");
     let hours = Math.floor(sec / (60 * 60)).toString().padStart(2, "0");
 
-    const time = {
+    const time: Time = {
         hours,
         minutes,
         seconds
     }
 
     return time;
+}
+
+function formatDuration(time: Time) {
+    const hours = `${time.hours === "00" ? "" : time.hours[0] === "0" ? time.hours[1] + " h" : time.hours + " h"}`;
+    const minutes = `${time.minutes === "00" ? "0 min" : time.minutes[0] === "0" ? time.minutes[1] + " min" : time.minutes + " min"}`;
+
+    return `${hours} ${minutes}`;
 }
