@@ -17,9 +17,9 @@ class RideCard {
 
         const data = document.createElement("div");
 
-        const dataDistanceDiv = this.#createDataPair("Distance", `${session.distance} km`);
-        const dataLeanAngleDiv = this.#createDataPair("Max Lean Angle", `${session.maxLeanAngle}${String.fromCharCode(176)}`);
-        const dataDurationDiv = this.#createDataPair("Time", this.#makeTimespanReadable(session.duration));
+        const dataDistanceDiv = this.createDataPair("Distance", `${session.distance} km`);
+        const dataLeanAngleDiv = this.createDataPair("Max Lean Angle", `${session.maxLeanAngle}${String.fromCharCode(176)}`);
+        const dataDurationDiv = this.createDataPair("Time", formatDuration(convertTimeStampToTime(session.duration)));
 
         data.append(dataDistanceDiv, dataLeanAngleDiv, dataDurationDiv);
         data.classList.add("d-flex", "gap-4", "mt-3");
@@ -28,19 +28,7 @@ class RideCard {
         cardDiv.classList.add("bg-body-tertiary", "my-1", "px-3", "py-2");
     }
 
-    #makeTimespanReadable(timespan: number) {
-        const durationMinutes = Math.floor(timespan / (1000 * 60)); // converting timespan(duration in milliseconds) to minutes
-
-        const hours = Math.floor(durationMinutes / 60); // converting durationMinutes to hours
-        const minutes = durationMinutes % 60;
-
-        const hoursString = `${hours} h`;
-        const minString = minutes > 0 ? `${minutes} min` : "";
-
-        return `${hoursString} ${minString}`;;
-    }
-
-    #createDataPair(title: string, value: string) {
+    private createDataPair(title: string, value: string) {
         const container = document.createElement("div");
 
         const titleDiv = document.createElement("div");

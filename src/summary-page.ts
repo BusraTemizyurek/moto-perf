@@ -47,8 +47,7 @@ class SummaryPage implements Page<SummaryPageOptions> {
         durationIcon.classList.add("summary-images");
         const durationVal = document.createElement("div");
         durationVal.classList.add("fs-big-4", "p-3");
-        const durationData = convertTimeStampToTime(durationValue);
-        durationVal.innerText = `${durationData.hours[0] === "0" ? durationData.hours[1] : durationData.hours} h ${durationData.minutes[0] === "0" ? durationData.minutes[1] : durationData.minutes} min`;
+        durationVal.innerText = formatDuration(convertTimeStampToTime(durationValue));
         duration.append(durationIcon, durationVal);
         duration.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
 
