@@ -1,4 +1,4 @@
-import bootstrap from "bootstrap";
+import { Popover } from "bootstrap";
 import type { LocationManager } from "./location-manager";
 import type { OrientationManager } from "./orientation-manager";
 import type { Router } from "./router";
@@ -70,7 +70,7 @@ export class MainPage implements Page {
         popoverButton.classList.add("btn", "btn-primary", "mx-auto");
         popoverBody.append(popoverBodyContent, popoverButton);
 
-        const popover = new bootstrap.Popover(ev.target, {
+        const popover = new Popover(ev.target, {
             html: true,
             title: popoverHeading,
             content: popoverBody,

@@ -60,7 +60,6 @@ export class SummaryPage implements Page<SummaryPageOptions> {
         const distanceIcon = document.createElement("img");
         distanceIcon.src = "./images/distance.png";
         distanceIcon.classList.add("summary-images");
-        //distanceIcon.classList.add("fa-solid", "fa-road", "fa-2xl");
         const distanceVal = document.createElement("div");
         distanceVal.classList.add("fs-big-4", "p-3");
         distanceVal.innerText = `${distanceValue} km`;

@@ -7,15 +7,24 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "bundle": "webpack"
+    "bundle": "webpack",
+    "start": "webpack serve --open"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.3",
     "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
   }
 }
