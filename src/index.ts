@@ -1,9 +1,9 @@
 // TODO: Remove request-permission-polyfil before going to production
 import "./request-permission-polyfil";
 
-import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./index.css";
 import { SessionRepository } from "./session-repository";
 import { OrientationManager } from "./orientation-manager";
 import { LocationManager } from "./location-manager";
