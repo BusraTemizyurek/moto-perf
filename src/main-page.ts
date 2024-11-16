@@ -140,10 +140,6 @@ export class MainPage implements Page {
         return rec;
     }
 
-    private createModalContent() {
-
-    }
-
     //drawing the page
     render(root: HTMLElement) {
         this._recordButton = this.createRecordButton();
