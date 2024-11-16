@@ -2,7 +2,6 @@
 import "./request-permission-polyfil";
 
 import "./index.css";
-import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { SessionRepository } from "./session-repository";
@@ -10,8 +9,6 @@ import { OrientationManager } from "./orientation-manager";
 import { LocationManager } from "./location-manager";
 import { Router } from "./router";
 import { MainPage } from "./main-page";
-import { RecordingPage } from "./recording-page";
-import { SummaryPage } from "./summary-page";
 
 document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
@@ -98,7 +95,7 @@ function seedData() {
 }
 seedData();
 
-window.onload = () => {
+window.onload = async () => {
     const sessionRepository = new SessionRepository();
     const root = document.getElementById("root");
     if (!root) {
@@ -109,14 +106,23 @@ window.onload = () => {
     const locationManager = new LocationManager();
 
     const router = new Router(root);
-    const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager);
-    router.register("main", mainPage);
 
-    const recordingPage = new RecordingPage(locationManager, orientationManager, router);
-    router.register("recording", recordingPage);
+    router.register("main", () => {
+        const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager);
+        return Promise.resolve(mainPage);
+    });
 
-    const summaryPage = new SummaryPage(router, sessionRepository);
-    router.register("summary", summaryPage);
+    router.register("recording", async () => {
+        const RecordingPage = await import(/* webpackChunkName: "recording-page" */ './recording-page').then(m => m.RecordingPage);
+        const recordingPage = new RecordingPage(locationManager, orientationManager, router);
+        return recordingPage;
+    });
 
-    router.navigate("main");
+    router.register("summary", async () => {
+        const SummaryPage = await import(/* webpackChunkName: "summary-page" */ './summary-page').then(module => module.SummaryPage);
+        const summaryPage = new SummaryPage(router, sessionRepository);
+        return summaryPage;
+    });
+
+    await router.navigate("main");
 }
