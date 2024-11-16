@@ -22,6 +22,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        roots: [__dirname, path.resolve(__dirname, "public")]
     },
     output: {
         filename: '[name].js',
