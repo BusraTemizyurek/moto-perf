@@ -6,6 +6,8 @@ import type { Router } from "./router";
 import { SessionDraft } from "./session-draft";
 import type { Page } from "./types";
 import { convertTimeStampToTime, setAttributes } from "./utilities";
+import { faSquare } from '@fortawesome/free-solid-svg-icons';
+import { library, icon } from '@fortawesome/fontawesome-svg-core';
 
 export class RecordingPage implements Page {
     private readonly _locationManager: LocationManager;
@@ -21,6 +23,8 @@ export class RecordingPage implements Page {
         this._locationManager = locationManager;
         this._orientationManager = orientationManager;
         this._router = router;
+
+        library.add(faSquare);
     }
 
     private createRecordingPageDiv() {
@@ -110,11 +114,17 @@ export class RecordingPage implements Page {
     }
 
     private createEndButton() {
+        const squareIcon = icon({
+            iconName: faSquare.iconName,
+            prefix: faSquare.prefix
+        }, {
+            classes: ['fa-2xl'],
+            styles: {
+                color: '#ffffff'
+            }
+        });
         const endButton = document.createElement("button");
-        const icon = document.createElement("i");
-        icon.classList.add("fa-solid", "fa-square", "fa-2xl");
-        icon.setAttribute("style", "color: #ffffff;");
-        endButton.append(icon);
+        endButton.append(squareIcon.node[0]);
         endButton.classList.add("bg-danger", "rounded-circle", "border", "border-0", "shadow", "p-4");
         endButton.onclick = this.onEndClick.bind(this);
 

@@ -8,6 +8,8 @@ import type { Page, Session } from "./types";
 import type { ButtonMouseEvent, Modal } from "./modal";
 import { NoRideCard } from "./no-ride-card";
 import { RideCard } from "./ride-card";
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { library, icon } from '@fortawesome/fontawesome-svg-core';
 
 export class MainPage implements Page {
     private readonly _router: Router;
@@ -23,6 +25,8 @@ export class MainPage implements Page {
         this._sessionRepository = sessionRepository;
         this._orientationManager = orientationManager;
         this._locationManager = locationManager;
+
+        library.add(faCircle);
     }
 
     //helper functions
@@ -130,10 +134,23 @@ export class MainPage implements Page {
     }
 
     private createRecordButton() {
+        const circleIcon = icon(
+            {
+                iconName: faCircle.iconName,
+                prefix: faCircle.prefix
+            },
+            {
+                classes: ["fa-xl"],
+                styles: {
+                    color: 'd10510'
+                }
+            }
+        );
+
         const rec = document.createElement("button");
         rec.id = "record-button";
         rec.type = "button";
-        rec.innerHTML = '<i class="fa-solid fa-circle fa-xl" style="color: #d10510;"></i>';
+        rec.appendChild(circleIcon.node[0]);
         rec.classList.add("shadow-sm", "main-rec-button", "btn", "btn-outline-dark", "bg-secondary-subtle", "border", "border-4", "border-black", "rounded-circle");
         rec.onclick = this.onRecordClick.bind(this);
 
