@@ -121,11 +121,11 @@ export class RecordingPage implements Page {
         return endButton;
     }
 
-    private onEndClick() {
+    private async onEndClick() {
         this._locationManager.stopWatch();
         this._orientationManager.unwatch(this.onOrientationChange);
         const session = this._sessionDraft?.end();
-        this._router.navigate("summary", {
+        await this._router.navigate("summary", {
             session
         });
     }

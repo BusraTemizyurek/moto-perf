@@ -119,15 +119,15 @@ export class SummaryPage implements Page<SummaryPageOptions> {
         return buttons;
     }
 
-    private onSaveClick = () => {
+    private onSaveClick = async () => {
         if (this._options) {
             this._sessionRepository.addSession(this._options.session);
-            this._router.navigate("main");
+            await this._router.navigate("main");
         }
     }
 
-    private onDiscardClick = () => {
-        this._router.navigate("main");
+    private onDiscardClick = async () => {
+        await this._router.navigate("main");
     }
 
     render(root: HTMLElement, options?: SummaryPageOptions) {

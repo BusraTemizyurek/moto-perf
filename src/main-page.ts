@@ -3,9 +3,9 @@ import type { LocationManager } from "./location-manager";
 import type { OrientationManager } from "./orientation-manager";
 import type { Router } from "./router";
 import type { SessionRepository } from "./session-repository";
-import { CalibrationModalContent } from "./calibration-modal-content";
+import type { CalibrationModalContent } from "./calibration-modal-content";
 import type { Page, Session } from "./types";
-import { type ButtonMouseEvent, Modal } from "./modal";
+import type { ButtonMouseEvent, Modal } from "./modal";
 import { NoRideCard } from "./no-ride-card";
 import { RideCard } from "./ride-card";
 
@@ -98,11 +98,26 @@ export class MainPage implements Page {
 
             this._calibrationModal?.hide();
             this._recordButton?.classList.remove("d-none");
-            this._router.navigate("recording");
+            await this._router.navigate("recording");
         }
     }
 
     private async onRecordClick() {
+        const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
+        const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
+
+        this._calibrationModal = new Modal({
+            title: "Calibration",
+            createContent: () => {
+                this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
+                return this._calibrationModalContent.element;
+            },
+            buttonTitle: "Ready!",
+            onButtonClick: this.onClickModalReady.bind(this),
+            onClose: this.onClickModalClose.bind(this),
+            isButtonVisible: false
+        });
+
         this._recordButton?.classList.add("d-none");
         this._calibrationModal?.show();
         const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
@@ -126,21 +141,11 @@ export class MainPage implements Page {
     }
 
     private createModalContent() {
-        this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
-        return this._calibrationModalContent.element;
+
     }
 
     //drawing the page
     render(root: HTMLElement) {
-        this._calibrationModal = new Modal({
-            title: "Calibration",
-            createContent: this.createModalContent.bind(this),
-            buttonTitle: "Ready!",
-            onButtonClick: this.onClickModalReady.bind(this),
-            onClose: this.onClickModalClose.bind(this),
-            isButtonVisible: false
-        });
-
         this._recordButton = this.createRecordButton();
 
         root.append(this.createHeader(), this.createCardList(this._sessionRepository.sessions), this._recordButton);
