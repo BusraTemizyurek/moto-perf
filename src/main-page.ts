@@ -1,4 +1,15 @@
-class MainPage implements Page {
+import { Popover } from "bootstrap";
+import type { LocationManager } from "./location-manager";
+import type { OrientationManager } from "./orientation-manager";
+import type { Router } from "./router";
+import type { SessionRepository } from "./session-repository";
+import { CalibrationModalContent } from "./calibration-modal-content";
+import type { Page, Session } from "./types";
+import { type ButtonMouseEvent, Modal } from "./modal";
+import { NoRideCard } from "./no-ride-card";
+import { RideCard } from "./ride-card";
+
+export class MainPage implements Page {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
     private readonly _orientationManager: OrientationManager;
@@ -59,7 +70,7 @@ class MainPage implements Page {
         popoverButton.classList.add("btn", "btn-primary", "mx-auto");
         popoverBody.append(popoverBodyContent, popoverButton);
 
-        const popover = new bootstrap.Popover(ev.target, {
+        const popover = new Popover(ev.target, {
             html: true,
             title: popoverHeading,
             content: popoverBody,

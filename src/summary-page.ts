@@ -1,8 +1,13 @@
+import type { Router } from "./router";
+import type { SessionRepository } from "./session-repository";
+import type { Session, Page } from "./types";
+import { convertTimeStampToTime, formatDate, formatDuration } from "./utilities";
+
 interface SummaryPageOptions {
     session: Session
 }
 
-class SummaryPage implements Page<SummaryPageOptions> {
+export class SummaryPage implements Page<SummaryPageOptions> {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
     private _options: SummaryPageOptions | undefined;
@@ -55,7 +60,6 @@ class SummaryPage implements Page<SummaryPageOptions> {
         const distanceIcon = document.createElement("img");
         distanceIcon.src = "./images/distance.png";
         distanceIcon.classList.add("summary-images");
-        //distanceIcon.classList.add("fa-solid", "fa-road", "fa-2xl");
         const distanceVal = document.createElement("div");
         distanceVal.classList.add("fs-big-4", "p-3");
         distanceVal.innerText = `${distanceValue} km`;

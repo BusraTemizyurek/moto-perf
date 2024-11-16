@@ -1,4 +1,13 @@
-class RecordingPage implements Page {
+import { Gauge } from "./gauge";
+import { getGaugeColor } from "./get-gauge-color";
+import type { LocationManager } from "./location-manager";
+import type { OrientationManager, OrientationWatcher } from "./orientation-manager";
+import type { Router } from "./router";
+import { SessionDraft } from "./session-draft";
+import type { Page } from "./types";
+import { convertTimeStampToTime, setAttributes } from "./utilities";
+
+export class RecordingPage implements Page {
     private readonly _locationManager: LocationManager;
     private readonly _orientationManager: OrientationManager;
     private readonly _router: Router;

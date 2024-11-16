@@ -1,3 +1,5 @@
+import type { Point, Session } from "./types";
+
 interface SerializedSession {
     date: string,
     distance: number,
@@ -7,7 +9,7 @@ interface SerializedSession {
     points?: Point[]
 }
 
-class SessionRepository {
+export class SessionRepository {
     private _sessions: Session[] = [];
 
     constructor() {

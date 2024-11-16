@@ -4,7 +4,7 @@ interface Time {
     seconds: string
 }
 
-function convertTimeToDayDivision(date: Date) {
+export function convertTimeToDayDivision(date: Date) {
     const timeRange = date.getHours();
 
     if (timeRange >= 5 && timeRange <= 11) {
@@ -17,7 +17,7 @@ function convertTimeToDayDivision(date: Date) {
     return "Night Ride";
 }
 
-function formatDate(date: Date) {
+export function formatDate(date: Date) {
     return date.toLocaleString("en-US", {
         month: "long",
         day: "numeric",
@@ -28,14 +28,14 @@ function formatDate(date: Date) {
     });
 }
 
-function setAttributes(element: HTMLElement, attributes: Record<string, string> | [string, string][]) {
+export function setAttributes(element: HTMLElement, attributes: Record<string, string> | [string, string][]) {
     const attributeArray = Array.isArray(attributes) ? attributes : Object.entries(attributes);
     for (const [key, value] of attributeArray) {
         element.setAttribute(key, value);
     }
 }
 
-function convertTimeStampToTime(elapsedTime: number) {
+export function convertTimeStampToTime(elapsedTime: number) {
     const sec = elapsedTime / 1000;
 
     let seconds = Math.floor(sec % 60).toString().padStart(2, "0");
@@ -51,7 +51,7 @@ function convertTimeStampToTime(elapsedTime: number) {
     return time;
 }
 
-function formatDuration(time: Time) {
+export function formatDuration(time: Time) {
     const hours = `${time.hours === "00" ? "" : time.hours[0] === "0" ? time.hours[1] + " h" : time.hours + " h"}`;
     const minutes = `${time.minutes === "00" ? "0 min" : time.minutes[0] === "0" ? time.minutes[1] + " min" : time.minutes + " min"}`;
 

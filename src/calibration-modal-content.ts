@@ -1,4 +1,9 @@
-class CalibrationModalContent {
+import { Gauge } from "./gauge";
+import { getGaugeColor } from "./get-gauge-color";
+import type { OrientationManager, OrientationWatcher } from "./orientation-manager";
+import { setAttributes } from "./utilities";
+
+export class CalibrationModalContent {
     private readonly _modalContent: HTMLElement;
     private readonly _waitingContent: HTMLElement;
     private readonly _canvas: HTMLCanvasElement;

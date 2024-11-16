@@ -1,4 +1,4 @@
-class NoRideCard {
+export class NoRideCard {
     private readonly _card: HTMLDivElement;
 
     constructor() {

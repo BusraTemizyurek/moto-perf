@@ -1,6 +1,6 @@
-type OrientationWatcher = (event: DeviceOrientationEvent) => void
+export type OrientationWatcher = (event: DeviceOrientationEvent) => void
 
-class OrientationManager {
+export class OrientationManager {
     async requestPermission() {
         if ('requestPermission' in DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
             // Handle iOS 13+ devices.

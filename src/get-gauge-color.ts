@@ -1,4 +1,4 @@
-function getGaugeColor(angle: number) {
+export function getGaugeColor(angle: number) {
     const adjustedLeanAngle = Math.abs(angle);
 
     if (adjustedLeanAngle < 45) {
