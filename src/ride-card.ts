@@ -1,5 +1,5 @@
 import type { Session } from "./types";
-import { convertTimeToDayDivision, formatDate, formatDuration, convertTimeStampToTime } from "./utilities";
+import { convertTimeToDayDivision, formatDate, formatDuration } from "./utilities";
 
 export class RideCard {
     private _cardDiv: HTMLDivElement;
@@ -22,7 +22,7 @@ export class RideCard {
 
         const dataDistanceDiv = this.createDataPair("Distance", `${session.distance} km`);
         const dataLeanAngleDiv = this.createDataPair("Max Lean Angle", `${session.maxLeanAngle}${String.fromCharCode(176)}`);
-        const dataDurationDiv = this.createDataPair("Time", formatDuration(convertTimeStampToTime(session.duration)));
+        const dataDurationDiv = this.createDataPair("Time", formatDuration(session.duration));
 
         data.append(dataDistanceDiv, dataLeanAngleDiv, dataDurationDiv);
         data.classList.add("d-flex", "gap-4", "mt-3");
