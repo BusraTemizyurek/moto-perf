@@ -20,13 +20,14 @@ export class MainPage implements Page {
     private _calibrationModalContent: CalibrationModalContent | undefined;
     private _calibrationModal: Modal | undefined;
     private _recordButton: HTMLElement | undefined;
+    private _wakeLockManager: WakeLockManager;
 
-    constructor(router: Router, sessionRepository: SessionRepository, orientationManager: OrientationManager, locationManager: LocationManager) {
+    constructor(router: Router, sessionRepository: SessionRepository, orientationManager: OrientationManager, locationManager: LocationManager, wakeLockManager: WakeLockManager) {
         this._router = router;
         this._sessionRepository = sessionRepository;
         this._orientationManager = orientationManager;
         this._locationManager = locationManager;
-
+        this._wakeLockManager = wakeLockManager;
         library.add(faCircle);
     }
 
@@ -61,8 +62,7 @@ export class MainPage implements Page {
     }
 
     private onClickModalReady(ev: ButtonMouseEvent) {
-        const wakeLock = new WakeLockManager();
-        wakeLock.requestWakeLock();
+        this._wakeLockManager.requestWakeLock();
 
         ev.target.disabled = true;
         //popover content
@@ -106,9 +106,7 @@ export class MainPage implements Page {
 
             this._calibrationModal?.hide();
             this._recordButton?.classList.remove("d-none");
-            await this._router.navigate("recording", {
-                wakeLock
-            });
+            await this._router.navigate("recording");
         }
     }
 

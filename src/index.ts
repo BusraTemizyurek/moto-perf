@@ -9,6 +9,7 @@ import { OrientationManager } from "./orientation-manager";
 import { LocationManager } from "./location-manager";
 import { Router } from "./router";
 import { MainPage } from "./main-page";
+import { WakeLockManager } from "./wake-lock-manager";
 
 document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
@@ -104,17 +105,18 @@ window.onload = async () => {
 
     const orientationManager = new OrientationManager();
     const locationManager = new LocationManager();
+    const wakeLock = new WakeLockManager();
 
     const router = new Router(root);
 
     router.register("main", () => {
-        const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager);
+        const mainPage = new MainPage(router, sessionRepository, orientationManager, locationManager, wakeLock);
         return Promise.resolve(mainPage);
     });
 
     router.register("recording", async () => {
         const RecordingPage = await import(/* webpackChunkName: "recording-page" */ './recording-page').then(m => m.RecordingPage);
-        const recordingPage = new RecordingPage(locationManager, orientationManager, router);
+        const recordingPage = new RecordingPage(locationManager, orientationManager, router, wakeLock);
         return recordingPage;
     });
 

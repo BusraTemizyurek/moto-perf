@@ -10,11 +10,10 @@ export class WakeLockManager {
         }
     }
 
-    async wakeLockOff() {
+    async releaseWakeLock() {
         if (this._curWakeLock) {
-            this._curWakeLock.release().then(() => {
-                this._curWakeLock = undefined;
-            });
+            await this._curWakeLock.release();
+            this._curWakeLock = undefined;
         }
     }
 }
