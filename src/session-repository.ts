@@ -31,7 +31,7 @@ export class SessionRepository {
     }
 
     addSession(session: Session) {
-        this._sessions.splice(0, 0, session);
+        this._sessions.unshift(session);
         localStorage.setItem("sessions", JSON.stringify(this.sessions));
     }
 
