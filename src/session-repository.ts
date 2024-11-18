@@ -26,11 +26,12 @@ export class SessionRepository {
                     points: session.points ?? []
                 });
             }
+            this.sessions.sort((a: Session, b: Session) => { return b.date.getTime() - a.date.getTime(); });
         }
     }
 
     addSession(session: Session) {
-        this.sessions.push(session);
+        this._sessions.splice(0, 0, session);
         localStorage.setItem("sessions", JSON.stringify(this.sessions));
     }
 
