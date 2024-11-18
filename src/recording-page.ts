@@ -8,8 +8,13 @@ import type { Page } from "./types";
 import { convertTimeStampToTime, setAttributes } from "./utilities";
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
+import { WakeLockManager } from "./wake-lock-manager";
 
-export class RecordingPage implements Page {
+interface RecordingPageOptions {
+    wakeLock: WakeLockManager
+}
+
+export class RecordingPage implements Page<RecordingPageOptions> {
     private readonly _locationManager: LocationManager;
     private readonly _orientationManager: OrientationManager;
     private readonly _router: Router;
@@ -18,6 +23,7 @@ export class RecordingPage implements Page {
     private _position: GeolocationPosition | undefined;
     private _sessionDraft: SessionDraft | undefined;
     private _initialOrientation: DeviceOrientationEvent | undefined;
+    private _options: RecordingPageOptions | undefined;
 
     constructor(locationManager: LocationManager, orientationManager: OrientationManager, router: Router) {
         this._locationManager = locationManager;
@@ -136,6 +142,11 @@ export class RecordingPage implements Page {
         if (this._wathchHandler) {
             this._orientationManager.unwatch(this._wathchHandler);
         }
+
+        if (this._options) {
+            this._options.wakeLock.wakeLockOff();
+        }
+
         const session = this._sessionDraft?.end();
         await this._router.navigate("summary", {
             session

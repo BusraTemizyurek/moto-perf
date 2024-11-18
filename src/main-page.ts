@@ -10,6 +10,7 @@ import { NoRideCard } from "./no-ride-card";
 import { RideCard } from "./ride-card";
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
+import { WakeLockManager } from "./wake-lock-manager";
 
 export class MainPage implements Page {
     private readonly _router: Router;
@@ -60,6 +61,9 @@ export class MainPage implements Page {
     }
 
     private onClickModalReady(ev: ButtonMouseEvent) {
+        const wakeLock = new WakeLockManager();
+        wakeLock.requestWakeLock();
+
         ev.target.disabled = true;
         //popover content
         const popoverHeading = document.createElement("div");
@@ -102,11 +106,44 @@ export class MainPage implements Page {
 
             this._calibrationModal?.hide();
             this._recordButton?.classList.remove("d-none");
-            await this._router.navigate("recording");
+            await this._router.navigate("recording", {
+                wakeLock
+            });
         }
     }
 
-    private async onRecordClick() {
+    private async onRecordClick(ev: ButtonMouseEvent) {
+
+        const popoverHeading = document.createElement("div");
+        popoverHeading.innerText = "Device Orientation Request";
+
+        const popoverBody = document.createElement("div");
+        const popoverBodyContent = document.createElement("div");
+        popoverBodyContent.innerText = "Do you accept to give access to your device orientation? This will enable you to see your lean angle."
+
+        const popoverButton = document.createElement("button");
+        popoverButton.innerText = "Allow"
+        popoverButton.classList.add("btn", "btn-primary", "mx-auto");
+        popoverBody.append(popoverBodyContent, popoverButton);
+
+        const popover = new Popover(ev.target, {
+            html: true,
+            title: popoverHeading,
+            content: popoverBody,
+            trigger: "click"
+        })
+        popover.show();
+
+        popoverButton.onclick = async () => {
+            popover.hide();
+            const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
+            if (isOrientationPermissionGranted) {
+                this._calibrationModalContent?.hideWaitingContent();
+                this._calibrationModal?.showButton();
+            } else {
+                // TODO: access blocked
+            }
+        }
         const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
         const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
 
@@ -124,13 +161,6 @@ export class MainPage implements Page {
 
         this._recordButton?.classList.add("d-none");
         this._calibrationModal?.show();
-        const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
-        if (isOrientationPermissionGranted) {
-            this._calibrationModalContent?.hideWaitingContent();
-            this._calibrationModal?.showButton();
-        } else {
-            // TODO: access blocked
-        }
     }
 
     private createRecordButton() {
@@ -152,7 +182,9 @@ export class MainPage implements Page {
         rec.type = "button";
         rec.appendChild(circleIcon.node[0]);
         rec.classList.add("shadow-sm", "main-rec-button", "btn", "btn-outline-dark", "bg-secondary-subtle", "border", "border-4", "border-black", "rounded-circle");
-        rec.onclick = this.onRecordClick.bind(this);
+        rec.onclick = (ev) => {
+            this.onRecordClick(ev as ButtonMouseEvent);
+        }
 
         return rec;
     }

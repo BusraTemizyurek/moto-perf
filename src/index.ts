@@ -1,5 +1,5 @@
 // TODO: Remove request-permission-polyfil before going to production
-import "./request-permission-polyfil";
+//import "./request-permission-polyfil";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
