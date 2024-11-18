@@ -1,7 +1,7 @@
 import type { Router } from "./router";
 import type { SessionRepository } from "./session-repository";
 import type { Session, Page } from "./types";
-import { convertTimeStampToTime, formatDate, formatDuration } from "./utilities";
+import { formatDate, formatDuration } from "./utilities";
 
 interface SummaryPageOptions {
     session: Session
@@ -52,7 +52,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
         durationIcon.classList.add("summary-images");
         const durationVal = document.createElement("div");
         durationVal.classList.add("fs-big-4", "p-3");
-        durationVal.innerText = formatDuration(convertTimeStampToTime(durationValue));
+        durationVal.innerText = formatDuration(durationValue);
         duration.append(durationIcon, durationVal);
         duration.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
 
