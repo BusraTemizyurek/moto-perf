@@ -43,7 +43,7 @@ export class RecordingPage implements Page {
             const diff = now - this._sessionDraft.startTime;
             const formattedDif = convertTimeStampToTime(diff);
 
-            element.innerText = `${formattedDif.hours}:${formattedDif.minutes}:${formattedDif.seconds}`;
+            element.innerText = `${formattedDif.hours.toString().padStart(2, "0")}:${formattedDif.minutes.toString().padStart(2, "0")}:${formattedDif.seconds.toString().padStart(2, "0")}`;
         }, 1000);
     }
 

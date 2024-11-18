@@ -32,9 +32,9 @@ export function setAttributes(element: HTMLElement, attributes: Record<string, s
 export function convertTimeStampToTime(elapsedTime: number) {
     const sec = elapsedTime / 1000;
 
-    let seconds = Math.floor(sec % 60).toString().padStart(2, "0");
-    let minutes = Math.floor((sec / 60) % 60).toString().padStart(2, "0");
-    let hours = Math.floor(sec / (60 * 60)).toString().padStart(2, "0");
+    const seconds = Math.floor(sec % 60);
+    const minutes = Math.floor((sec / 60) % 60);
+    const hours = Math.floor(sec / (60 * 60));
 
     const time = {
         hours,
@@ -46,11 +46,8 @@ export function convertTimeStampToTime(elapsedTime: number) {
 }
 
 export function formatDuration(time: number) {
-    const sec = time / 1000;
-
-    const hours = Math.floor(sec / (60 * 60));
+    const { hours, minutes } = convertTimeStampToTime(time);
     const h = hours > 0 ? `${hours} h` : "";
-    const minutes = Math.floor((sec / 60) % 60);
     const min = minutes > 0 ? `${minutes} min` : "";
 
     return hours <= 0 && minutes <= 0 ? `0` : `${h} ${min}`;
