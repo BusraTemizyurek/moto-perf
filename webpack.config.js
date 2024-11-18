@@ -19,6 +19,7 @@ module.exports = {
     },
     devServer: {
         static: './public',
+        allowedHosts: "all",
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
