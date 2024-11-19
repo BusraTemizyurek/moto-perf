@@ -112,54 +112,30 @@ export class MainPage implements Page {
     }
 
     private async onRecordClick(ev: ButtonMouseEvent) {
-        const popoverHeading = document.createElement("div");
-        popoverHeading.innerText = "Device Orientation Request";
+        const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
+        if (isOrientationPermissionGranted) {
+            const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
+            const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
 
-        const popoverBody = document.createElement("div");
-        const popoverBodyContent = document.createElement("div");
-        popoverBodyContent.innerText = "Do you accept to give access to your device orientation? This will enable you to see your lean angle."
+            this._calibrationModal = new Modal({
+                title: "Calibration",
+                createContent: () => {
+                    this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
+                    return this._calibrationModalContent.element;
+                },
+                buttonTitle: "Ready!",
+                onButtonClick: this.onClickModalReady.bind(this),
+                onClose: this.onClickModalClose.bind(this),
+                isButtonVisible: true
+            });
+            this._calibrationModal?.show();
+            this._calibrationModalContent?.hideWaitingContent();
 
-        const popoverButton = document.createElement("button");
-        popoverButton.innerText = "Allow"
-        popoverButton.classList.add("btn", "btn-primary", "mx-auto");
-        popoverBody.append(popoverBodyContent, popoverButton);
+            this._recordButton?.classList.add("d-none");
 
-        const popover = new Popover(ev.target, {
-            html: true,
-            title: popoverHeading,
-            content: popoverBody,
-            trigger: "click"
-        })
-        popover.show();
-
-        popoverButton.onclick = async () => {
-            popover.hide();
-            const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
-            if (isOrientationPermissionGranted) {
-                this._calibrationModalContent?.hideWaitingContent();
-                this._calibrationModal?.showButton();
-            } else {
-                // TODO: access blocked
-            }
+        } else {
+            // TODO: access blocked
         }
-
-        const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
-        const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
-
-        this._calibrationModal = new Modal({
-            title: "Calibration",
-            createContent: () => {
-                this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
-                return this._calibrationModalContent.element;
-            },
-            buttonTitle: "Ready!",
-            onButtonClick: this.onClickModalReady.bind(this),
-            onClose: this.onClickModalClose.bind(this),
-            isButtonVisible: false
-        });
-
-        this._recordButton?.classList.add("d-none");
-        this._calibrationModal?.show();
     }
 
     private createRecordButton() {
