@@ -20,6 +20,7 @@ export class MainPage implements Page {
     private _calibrationModal: Modal | undefined;
     private _recordButton: HTMLElement | undefined;
 
+
     constructor(router: Router, sessionRepository: SessionRepository, orientationManager: OrientationManager, locationManager: LocationManager) {
         this._router = router;
         this._sessionRepository = sessionRepository;
@@ -106,28 +107,28 @@ export class MainPage implements Page {
         }
     }
 
-    private async onRecordClick() {
-        const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
-        const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
-
-        this._calibrationModal = new Modal({
-            title: "Calibration",
-            createContent: () => {
-                this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
-                return this._calibrationModalContent.element;
-            },
-            buttonTitle: "Ready!",
-            onButtonClick: this.onClickModalReady.bind(this),
-            onClose: this.onClickModalClose.bind(this),
-            isButtonVisible: false
-        });
-
-        this._recordButton?.classList.add("d-none");
-        this._calibrationModal?.show();
+    private async onRecordClick(ev: ButtonMouseEvent) {
         const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
         if (isOrientationPermissionGranted) {
+            const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
+            const CalibrationModalContent = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './calibration-modal-content').then(m => m.CalibrationModalContent);
+
+            this._calibrationModal = new Modal({
+                title: "Calibration",
+                createContent: () => {
+                    this._calibrationModalContent = new CalibrationModalContent(this._orientationManager);
+                    return this._calibrationModalContent.element;
+                },
+                buttonTitle: "Ready!",
+                onButtonClick: this.onClickModalReady.bind(this),
+                onClose: this.onClickModalClose.bind(this),
+                isButtonVisible: true
+            });
+            this._calibrationModal?.show();
             this._calibrationModalContent?.hideWaitingContent();
-            this._calibrationModal?.showButton();
+
+            this._recordButton?.classList.add("d-none");
+
         } else {
             // TODO: access blocked
         }
@@ -152,8 +153,9 @@ export class MainPage implements Page {
         rec.type = "button";
         rec.appendChild(circleIcon.node[0]);
         rec.classList.add("shadow-sm", "main-rec-button", "btn", "btn-outline-dark", "bg-secondary-subtle", "border", "border-4", "border-black", "rounded-circle");
-        rec.onclick = this.onRecordClick.bind(this);
-
+        rec.onclick = (ev) => {
+            this.onRecordClick(ev as ButtonMouseEvent);
+        }
         return rec;
     }
 
