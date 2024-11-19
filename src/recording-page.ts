@@ -136,7 +136,6 @@ export class RecordingPage implements Page {
         if (this._wathchHandler) {
             this._orientationManager.unwatch(this._wathchHandler);
         }
-
         const session = this._sessionDraft?.end();
         await this._router.navigate("summary", {
             session
