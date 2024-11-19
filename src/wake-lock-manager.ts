@@ -2,8 +2,10 @@ export class WakeLockManager {
     private _curWakeLock: WakeLockSentinel | undefined;
 
     async requestWakeLock() {
-        const curWakeLock = await navigator.wakeLock.request();
-        this._curWakeLock = curWakeLock;
+        if (!this._curWakeLock) {
+            const curWakeLock = await navigator.wakeLock.request();
+            this._curWakeLock = curWakeLock;
+        }
     }
 
     async releaseWakeLock() {
