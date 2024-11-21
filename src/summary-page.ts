@@ -1,3 +1,4 @@
+import type { LocationManager } from "./location-manager";
 import type { Router } from "./router";
 import type { SessionRepository } from "./session-repository";
 import type { Session, Page } from "./types";
@@ -10,11 +11,13 @@ interface SummaryPageOptions {
 export class SummaryPage implements Page<SummaryPageOptions> {
     private readonly _router: Router;
     private readonly _sessionRepository: SessionRepository;
+    private readonly _locationManager: LocationManager
     private _options: SummaryPageOptions | undefined;
 
-    constructor(router: Router, sessionRepository: SessionRepository) {
+    constructor(router: Router, sessionRepository: SessionRepository, locationManager: LocationManager) {
         this._router = router;
         this._sessionRepository = sessionRepository;
+        this._locationManager = locationManager;
     }
 
     private createPageDiv() {
@@ -56,31 +59,6 @@ export class SummaryPage implements Page<SummaryPageOptions> {
         duration.append(durationIcon, durationVal);
         duration.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
 
-        const distance = document.createElement("div");
-        const distanceIcon = document.createElement("img");
-        distanceIcon.src = "./images/distance.png";
-        distanceIcon.classList.add("summary-images");
-        const distanceVal = document.createElement("div");
-        distanceVal.classList.add("fs-big-4", "p-3");
-        distanceVal.innerText = `${distanceValue} km`;
-        distance.append(distanceIcon, distanceVal);
-        distance.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
-
-        row1.append(duration, distance);
-
-        const row2 = document.createElement("div");
-        row2.classList.add("d-flex", "flex-row", "w-100", "justify-content-between");
-
-        const speed = document.createElement("div");
-        const speedIcon = document.createElement("img");
-        speedIcon.src = "./images/speed.png";
-        speedIcon.classList.add("summary-images");
-        const speedVal = document.createElement("div");
-        speedVal.classList.add("fs-big-4", "p-3");
-        speedVal.innerText = `${speedValue} km/h`;
-        speed.append(speedIcon, speedVal);
-        speed.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
-
         const maxLeanAngle = document.createElement("div");
         const maxLeanAngleIcon = document.createElement("img");
         maxLeanAngleIcon.src = "./images/lean.png";
@@ -91,10 +69,39 @@ export class SummaryPage implements Page<SummaryPageOptions> {
         maxLeanAngle.append(maxLeanAngleIcon, maxLeanAngleVal);
         maxLeanAngle.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
 
-        row2.append(speed, maxLeanAngle);
+        row1.append(duration, maxLeanAngle);
 
         const data = document.createElement("div");
-        data.append(row1, row2);
+        data.append(row1);
+
+        if (this._locationManager.isLocationAccessGranted) {
+            const row2 = document.createElement("div");
+            row2.classList.add("d-flex", "flex-row", "w-100", "justify-content-between");
+
+            const distance = document.createElement("div");
+            const distanceIcon = document.createElement("img");
+            distanceIcon.src = "./images/distance.png";
+            distanceIcon.classList.add("summary-images");
+            const distanceVal = document.createElement("div");
+            distanceVal.classList.add("fs-big-4", "p-3");
+            distanceVal.innerText = `${distanceValue} km`;
+            distance.append(distanceIcon, distanceVal);
+            distance.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
+
+            const speed = document.createElement("div");
+            const speedIcon = document.createElement("img");
+            speedIcon.src = "./images/speed.png";
+            speedIcon.classList.add("summary-images");
+            const speedVal = document.createElement("div");
+            speedVal.classList.add("fs-big-4", "p-3");
+            speedVal.innerText = `${speedValue} km/h`;
+            speed.append(speedIcon, speedVal);
+            speed.classList.add("d-flex", "flex-column", "align-items-center", "w-50");
+
+            row2.append(distance, speed);
+            data.append(row2);
+        }
+
         data.classList.add("d-flex", "flex-column", "align-items-center", "gap-5", "pt-4");
         summaryBody.append(date, data);
 
