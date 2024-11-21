@@ -173,8 +173,8 @@ export class RecordingPage implements Page {
         if (this._locationManager.isLocationAccessGranted) {
             recordingPageDiv.append(this.createTimePart(), this.createGaugePart(), this.createSpeedPart(), this.createEndButton());
         } else {
-            recordingPageDiv.append(this.createGaugePart(), this.createEndButton());
-            recordingPageDiv.classList.add("pt-16");
+            recordingPageDiv.append(this.createTimePart(), this.createGaugePart(), this.createEndButton());
+            recordingPageDiv.classList.add("pt-12");
         }
         recordingPageDiv.classList.add("text-white");
         root.append(recordingPageDiv);
