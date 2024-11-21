@@ -119,7 +119,7 @@ window.onload = async () => {
 
     router.register("summary", async () => {
         const SummaryPage = await import(/* webpackChunkName: "summary-page" */ './summary-page').then(module => module.SummaryPage);
-        const summaryPage = new SummaryPage(router, sessionRepository);
+        const summaryPage = new SummaryPage(router, sessionRepository, locationManager);
         return summaryPage;
     });
 
