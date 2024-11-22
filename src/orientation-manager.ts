@@ -1,36 +1,39 @@
-export type OrientationWatcher = (event: DeviceOrientationEvent) => void
+export type OrientationWatcher = (event: DeviceOrientationEvent) => void;
 
 export class OrientationManager {
-    async requestPermission() {
-        if ('requestPermission' in DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
-            // Handle iOS 13+ devices.
-            const state: string = await DeviceMotionEvent.requestPermission();
-            if (state !== 'granted') {
-                console.error('Request to access the orientation was rejected');
-                return false;
-            }
-        }
-
-        return true;
+  async requestPermission() {
+    if (
+      "requestPermission" in DeviceMotionEvent &&
+      typeof DeviceMotionEvent.requestPermission === "function"
+    ) {
+      // Handle iOS 13+ devices.
+      const state: string = await DeviceMotionEvent.requestPermission();
+      if (state !== "granted") {
+        console.error("Request to access the orientation was rejected");
+        return false;
+      }
     }
 
-    private _lastOrientation: DeviceOrientationEvent | undefined;
+    return true;
+  }
 
-    get lastOrientation() {
-        return this._lastOrientation;
-    }
+  private _lastOrientation: DeviceOrientationEvent | undefined;
 
-    watch(listener: OrientationWatcher) {
-        const handler = (event: DeviceOrientationEvent) => {
-            this._lastOrientation = event;
-            listener(event);
-        }
-        window.addEventListener('deviceorientation', handler);
+  get lastOrientation() {
+    return this._lastOrientation;
+  }
 
-        return handler;
-    }
+  watch(listener: OrientationWatcher) {
+    const handler = (event: DeviceOrientationEvent) => {
+      this._lastOrientation = event;
+      listener(event);
+    };
+    window.addEventListener("deviceorientation", handler);
 
-    unwatch(listener: OrientationWatcher) {
-        window.removeEventListener("deviceorientation", listener)
-    }
+    return handler;
+  }
+
+  unwatch(listener: OrientationWatcher) {
+    window.removeEventListener("deviceorientation", listener);
+  }
 }
