@@ -1,16 +1,16 @@
 import { Popover } from "bootstrap";
-import type { LocationManager } from "./location-manager";
-import type { OrientationManager } from "./orientation-manager";
-import type { Router } from "./router";
-import type { SessionRepository } from "./session-repository";
-import type { CalibrationModalContent } from "./calibration-modal-content";
-import type { Page, Session } from "./types";
-import type { ButtonMouseEvent, Modal } from "./modal";
-import { NoRideCard } from "./no-ride-card";
-import { RideCard } from "./ride-card";
+import type { LocationManager } from "../services/location-manager";
+import type { OrientationManager } from "../services/orientation-manager";
+import type { Router } from "../services/router";
+import type { SessionRepository } from "../services/session-repository";
+import type { CalibrationModalContent } from "../components/calibration-modal-content";
+import type { Page, Session } from "../types";
+import type { ButtonMouseEvent, Modal } from "../components/modal";
+import { NoRideCard } from "../components/no-ride-card";
+import { RideCard } from "../components/ride-card";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
-import type { WakeLockManager } from "./wake-lock-manager";
+import type { WakeLockManager } from "../services/wake-lock-manager";
 
 export class MainPage implements Page {
   private readonly _router: Router;
@@ -147,10 +147,10 @@ export class MainPage implements Page {
       await this._orientationManager.requestPermission();
     if (isOrientationPermissionGranted) {
       const Modal = await import(
-        /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "./modal"
+        /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "../components/modal"
       ).then((m) => m.Modal);
       const CalibrationModalContent = await import(
-        /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "./calibration-modal-content"
+        /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "../components/calibration-modal-content"
       ).then((m) => m.CalibrationModalContent);
 
       this._calibrationModal = new Modal({

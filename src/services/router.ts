@@ -1,4 +1,4 @@
-import type { Page } from "./types";
+import type { Page } from "../types";
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export type PageFactory = () => Promise<Page<any>>;

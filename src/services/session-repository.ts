@@ -1,4 +1,4 @@
-import type { Point, Session } from "./types";
+import type { Point, Session } from "../types";
 
 interface SerializedSession {
   date: string;
