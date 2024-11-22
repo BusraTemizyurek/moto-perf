@@ -1,8 +1,8 @@
-import type { LocationManager } from "./location-manager";
-import type { Router } from "./router";
-import type { SessionRepository } from "./session-repository";
-import type { Session, Page } from "./types";
-import { formatDate, formatDuration } from "./utilities";
+import type { LocationManager } from "../services/location-manager";
+import type { Router } from "../services/router";
+import type { SessionRepository } from "../services/session-repository";
+import type { Session, Page } from "../types";
+import { formatDate, formatDuration } from "../utilities";
 
 interface SummaryPageOptions {
   session: Session;

@@ -1,4 +1,4 @@
-import type { Point, Session } from "./types";
+import type { Point, Session } from "../types";
 
 export class SessionDraft {
   private _initialGamma: number = 0;

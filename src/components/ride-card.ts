@@ -1,9 +1,9 @@
-import type { Session } from "./types";
+import type { Session } from "../types";
 import {
   convertTimeToDayDivision,
   formatDate,
   formatDuration,
-} from "./utilities";
+} from "../utilities";
 
 export class RideCard {
   private _cardDiv: HTMLDivElement;

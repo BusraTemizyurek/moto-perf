@@ -1,17 +1,17 @@
-import { Gauge } from "./gauge";
-import { getGaugeColor } from "./get-gauge-color";
-import type { LocationManager } from "./location-manager";
+import { Gauge } from "../components/gauge";
+import { getGaugeColor } from "../components/get-gauge-color";
+import type { LocationManager } from "../services/location-manager";
 import type {
   OrientationManager,
   OrientationWatcher,
-} from "./orientation-manager";
-import type { Router } from "./router";
-import { SessionDraft } from "./session-draft";
-import type { Page } from "./types";
-import { convertTimeStampToTime, setAttributes } from "./utilities";
+} from "../services/orientation-manager";
+import type { Router } from "../services/router";
+import { SessionDraft } from "../services/session-draft";
+import type { Page } from "../types";
+import { convertTimeStampToTime, setAttributes } from "../utilities";
 import { faSquare } from "@fortawesome/free-solid-svg-icons";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
-import type { WakeLockManager } from "./wake-lock-manager";
+import type { WakeLockManager } from "../services/wake-lock-manager";
 
 export class RecordingPage implements Page {
   private readonly _locationManager: LocationManager;

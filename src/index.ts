@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./index.css";
-import { SessionRepository } from "./session-repository";
-import { OrientationManager } from "./orientation-manager";
-import { LocationManager } from "./location-manager";
-import { Router } from "./router";
-import { MainPage } from "./main-page";
-import { WakeLockManager } from "./wake-lock-manager";
+import { SessionRepository } from "./services/session-repository";
+import { OrientationManager } from "./services/orientation-manager";
+import { LocationManager } from "./services/location-manager";
+import { Router } from "./services/router";
+import { MainPage } from "./pages/main-page";
+import { WakeLockManager } from "./services/wake-lock-manager";
 
 document.documentElement.setAttribute(
   "data-bs-theme",
@@ -129,7 +129,7 @@ window.onload = async () => {
 
   router.register("recording", async () => {
     const RecordingPage = await import(
-      /* webpackChunkName: "recording-page" */ "./recording-page"
+      /* webpackChunkName: "recording-page" */ "./pages/recording-page"
     ).then((m) => m.RecordingPage);
     const recordingPage = new RecordingPage(
       locationManager,
@@ -142,7 +142,7 @@ window.onload = async () => {
 
   router.register("summary", async () => {
     const SummaryPage = await import(
-      /* webpackChunkName: "summary-page" */ "./summary-page"
+      /* webpackChunkName: "summary-page" */ "./pages/summary-page"
     ).then((module) => module.SummaryPage);
     const summaryPage = new SummaryPage(
       router,
