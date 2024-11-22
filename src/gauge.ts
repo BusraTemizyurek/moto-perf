@@ -49,19 +49,19 @@ export class Gauge {
         const adjustedAngle = angle > 90 ? 90 : angle < -90 ? -90 : angle;
 
         let x = this._W / 2;
-        let y = this._H - 5;
+        const y = this._H - 5;
 
-        if (angle < 0) {
+        if (adjustedAngle < 0) {
             x -= 20;
 
-            if (angle > -10) {
+            if (adjustedAngle > -10) {
                 x -= 18;
             } else {
                 x -= 35;
             }
         }
-        else if (angle > 0) {
-            if (angle > 9) {
+        else if (adjustedAngle > 0) {
+            if (adjustedAngle > 9) {
                 x -= 35;
             } else {
                 x -= 10;
@@ -74,8 +74,8 @@ export class Gauge {
         this._ctx.font = "60px serif";
         this._ctx.lineWidth = 6;
 
-        for (let i = 0; i < angle.toString().length; i++) {
-            const letter = angle.toString()[i];
+        for (let i = 0; i < adjustedAngle.toString().length; i++) {
+            const letter = adjustedAngle.toString()[i];
             this._ctx.strokeText(letter, x, y, this._W - 30);
             x += this._ctx.measureText(letter).width + 6;
         }
