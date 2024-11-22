@@ -1,133 +1,129 @@
 body {
-    height: 100dvh;
-    overflow: hidden;
-    font-family: 'Arial', sans-serif;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: "Arial", sans-serif;
 }
 
 .root-div {
-    height: 100%;
+  height: 100%;
 }
 
 .main-header {
-    height: 35px;
-    margin: unset;
+  height: 35px;
+  margin: unset;
 }
 
 .main-data-width {
-    width: 80px;
+  width: 80px;
 }
 
 .main-rec-button {
-    width: 50px;
-    height: 50px;
-    bottom: 0;
-    right: 0;
-    margin-right: 30px;
-    margin-bottom: 30px;
-    position: absolute;
-    z-index: 9999;
-    padding: unset;
-    padding-top: 1px;
+  width: 50px;
+  height: 50px;
+  bottom: 0;
+  right: 0;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  position: absolute;
+  z-index: 9999;
+  padding: unset;
+  padding-top: 1px;
 }
 
 .main-cardlist-div {
-    height: 100%;
-    flex-grow: 1;
-    overflow: auto;
+  height: 100%;
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .fs-7 {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }
 
 .no-data-message {
-    height: 120px;
+  height: 120px;
 }
 
 .modal-bg {
-    background-image: url(/images/bg2.jpg);
-    background-position: top;
-}
-
-.text-white {
-    color: white;
+  background-image: url(/images/bg2.jpg);
+  background-position: top;
 }
 
 .recording-page-div {
-    background-image: url(/images/bg2_subtle.jpg);
-    background-position: top;
-    height: 100%;
+  background-image: url(/images/bg2_subtle.jpg);
+  background-position: top;
+  height: 100%;
 }
 
 .recording-page-values {
-    font-size: 60px;
+  font-size: 60px;
 }
 
 .fs-big-1 {
-    font-size: 60px;
+  font-size: 60px;
 }
 
 .fs-big-2 {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .fs-big-3 {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .fs-big-4 {
-    font-size: 35px;
+  font-size: 35px;
 }
 
 .pt-6 {
-    padding-top: 58px;
+  padding-top: 58px;
 }
 
 .pt-7 {
-    padding-top: 68px;
+  padding-top: 68px;
 }
 
 .pt-8 {
-    padding-top: 78px;
+  padding-top: 78px;
 }
 
 .pt-9 {
-    padding-top: 88px;
+  padding-top: 88px;
 }
 
 .pt-10 {
-    padding-top: 98px;
+  padding-top: 98px;
 }
 
 .pt-11 {
-    padding-top: 118px;
+  padding-top: 118px;
 }
 
 .pt-12 {
-    padding-top: 138px;
+  padding-top: 138px;
 }
 
 .pt-13 {
-    padding-top: 158px;
+  padding-top: 158px;
 }
 
 .pt-14 {
-    padding-top: 178px;
+  padding-top: 178px;
 }
 
 .pt-15 {
-    padding-top: 198px;
+  padding-top: 198px;
 }
 
 .pt-16 {
-    padding-top: 228px;
+  padding-top: 228px;
 }
 
 .summary-images {
-    height: 60px;
-    width: 60px;
+  height: 60px;
+  width: 60px;
 }
 
 .summary-buttons {
-    height: 50px;
+  height: 50px;
 }

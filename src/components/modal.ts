@@ -33,6 +33,7 @@ export class Modal {
 
     modal.classList.add("modal", "fade");
     modal.setAttribute("tabindex", "-1");
+    modal.setAttribute("data-bs-theme", "dark");
 
     const modalDialog = document.createElement("div");
     modalDialog.classList.add("modal-dialog", "modal-fullscreen-sm-down");
