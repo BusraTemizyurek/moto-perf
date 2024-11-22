@@ -204,7 +204,7 @@ export class MainPage implements Page {
       "border-black",
       "rounded-circle",
     );
-    rec.onclick = this.onRecordClick;
+    rec.onclick = this.onRecordClick.bind(this);
 
     return rec;
   }
