@@ -67,8 +67,12 @@ export class MainPage implements Page {
         try {
             await this._wakeLockManager.requestWakeLock();
         }
-        catch (err: any) {
-            console.log(`${err.name}, ${err.message}`);
+        catch (err: unknown) {
+            if (err instanceof Error) {
+                console.log(`${err.name}, ${err.message}`);
+            } else {
+                console.log(err);
+            }
         }
 
         ev.target.disabled = true;
@@ -117,7 +121,7 @@ export class MainPage implements Page {
         }
     }
 
-    private async onRecordClick(ev: ButtonMouseEvent) {
+    private async onRecordClick() {
         const isOrientationPermissionGranted = await this._orientationManager.requestPermission();
         if (isOrientationPermissionGranted) {
             const Modal = await import(/* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ './modal').then(m => m.Modal);
@@ -163,9 +167,8 @@ export class MainPage implements Page {
         rec.type = "button";
         rec.appendChild(circleIcon.node[0]);
         rec.classList.add("shadow-sm", "main-rec-button", "btn", "btn-outline-dark", "bg-secondary-subtle", "border", "border-4", "border-black", "rounded-circle");
-        rec.onclick = (ev) => {
-            this.onRecordClick(ev as ButtonMouseEvent);
-        }
+        rec.onclick = this.onRecordClick;
+
         return rec;
     }
 

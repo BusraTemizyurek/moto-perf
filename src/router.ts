@@ -1,9 +1,13 @@
 import type { Page } from "./types";
 
+
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export type PageFactory = () => Promise<Page<any>>
+
 export class Router {
     private readonly _root: HTMLElement;
     private readonly _pageFactoryMap = new Map<string, PageFactory>();
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     private readonly _pageMap = new Map<string, Page<any>>();
 
     constructor(root: HTMLElement) {

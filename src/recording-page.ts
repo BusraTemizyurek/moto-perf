@@ -38,7 +38,7 @@ export class RecordingPage implements Page {
     }
 
     private startTimer(element: HTMLElement) {
-        const time = setInterval(() => {
+        setInterval(() => {
             if (!this._sessionDraft) {
                 return;
             }
