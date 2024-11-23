@@ -24,6 +24,7 @@ export class CalibrationModalContent {
       "h-100",
       "justify-content-center",
       "align-items-center",
+      "text-white",
     );
     this._modalContent = modalContent;
 
@@ -31,7 +32,7 @@ export class CalibrationModalContent {
     const waitingPage = document.createElement("div");
     this._waitingContent = waitingPage;
     const spinner = document.createElement("div");
-    spinner.classList.add("spinner-border", "text-light");
+    spinner.classList.add("spinner-border");
     spinner.setAttribute("role", "status");
     const hiddenLoading = document.createElement("span");
     hiddenLoading.classList.add("visually-hidden");
@@ -40,7 +41,7 @@ export class CalibrationModalContent {
 
     const messageDiv = document.createElement("div");
     messageDiv.innerText = "Please hold on while we grant access.";
-    messageDiv.classList.add("mt-3", "text-white", "text-center");
+    messageDiv.classList.add("mt-3", "text-center");
     waitingPage.append(messageDiv);
     waitingPage.classList.add(
       "d-flex",

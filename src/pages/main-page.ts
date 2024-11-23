@@ -19,6 +19,7 @@ export class MainPage implements Page {
   private readonly _locationManager: LocationManager;
   private _calibrationModalContent: CalibrationModalContent | undefined;
   private _calibrationModal: Modal | undefined;
+  private _orientationAccessDeniedModal: Modal | undefined;
   private _recordButton: HTMLElement | undefined;
   private _wakeLockManager: WakeLockManager;
 
@@ -145,10 +146,10 @@ export class MainPage implements Page {
   private async onRecordClick() {
     const isOrientationPermissionGranted =
       await this._orientationManager.requestPermission();
+    const Modal = await import(
+      /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "../components/modal"
+    ).then((m) => m.Modal);
     if (isOrientationPermissionGranted) {
-      const Modal = await import(
-        /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "../components/modal"
-      ).then((m) => m.Modal);
       const CalibrationModalContent = await import(
         /* webpackPrefetch: true, webpackChunkName: "calibration-modal" */ "../components/calibration-modal-content"
       ).then((m) => m.CalibrationModalContent);
@@ -168,11 +169,29 @@ export class MainPage implements Page {
       });
       this._calibrationModal?.show();
       this._calibrationModalContent?.hideWaitingContent();
-
-      this._recordButton?.classList.add("d-none");
     } else {
-      // TODO: access blocked
+      this._orientationAccessDeniedModal = new Modal({
+        title: "Orientation Access",
+        createContent: () => {
+          const content = document.createElement("div");
+          // TODO: Instructions will be written here
+          content.innerText = "Instructions will be here";
+          content.classList.add("text-white");
+          return content;
+        },
+        buttonTitle: "Okay",
+        onButtonClick: () => {
+          this._router.navigate("main");
+        },
+        onClose: () => {
+          this._router.navigate("main");
+        },
+        isButtonVisible: false,
+      });
+      this._orientationAccessDeniedModal.show();
+      this._calibrationModalContent?.hideWaitingContent();
     }
+    this._recordButton?.classList.add("d-none");
   }
 
   private createRecordButton() {
