@@ -1,4 +1,3 @@
-import { Popover } from "bootstrap";
 import type { LocationManager } from "../services/location-manager";
 import type { OrientationManager } from "../services/orientation-manager";
 import type { Router } from "../services/router";
@@ -94,53 +93,29 @@ export class MainPage implements Page {
     }
 
     ev.target.disabled = true;
-    //popover content
-    const popoverHeading = document.createElement("div");
-    popoverHeading.innerText = "Remember!";
 
-    const popoverBody = document.createElement("div");
-    const popoverBodyContent = document.createElement("div");
-    popoverBodyContent.innerText =
-      "Enable location access to unlock ride analysis and map features. Without location, only lean angle data will be available.";
+    if (this._calibrationModalContent?.watchHandler) {
+      this._orientationManager.unwatch(
+        this._calibrationModalContent.watchHandler,
+      );
+    }
 
-    const popoverButton = document.createElement("button");
-    popoverButton.innerText = "Got it!";
-    popoverButton.classList.add("btn", "btn-primary", "mx-auto");
-    popoverBody.append(popoverBodyContent, popoverButton);
+    this._calibrationModal?.hideButton();
+    this._calibrationModalContent?.showWaitingContent();
+    const isLocationPermissionGranted =
+      await this._locationManager.requestPermission();
 
-    const popover = new Popover(ev.target, {
-      html: true,
-      title: popoverHeading,
-      content: popoverBody,
-      trigger: "click",
-    });
-    popover.show();
+    if (!isLocationPermissionGranted) {
+      console.log("denied");
+      //permission denied
+    } else {
+      console.log("granted");
+      //permission granted
+    }
 
-    popoverButton.onclick = async () => {
-      popover.hide();
-      if (this._calibrationModalContent?.watchHandler) {
-        this._orientationManager.unwatch(
-          this._calibrationModalContent.watchHandler,
-        );
-      }
-
-      this._calibrationModal?.hideButton();
-      this._calibrationModalContent?.showWaitingContent();
-      const isLocationPermissionGranted =
-        await this._locationManager.requestPermission();
-
-      if (!isLocationPermissionGranted) {
-        console.log("denied");
-        //permission denied
-      } else {
-        console.log("granted");
-        //permission granted
-      }
-
-      this._calibrationModal?.hide();
-      this._recordButton?.classList.remove("d-none");
-      await this._router.navigate("recording");
-    };
+    this._calibrationModal?.hide();
+    this._recordButton?.classList.remove("d-none");
+    await this._router.navigate("recording");
   }
 
   private async onRecordClick() {
