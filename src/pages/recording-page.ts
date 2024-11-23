@@ -110,6 +110,10 @@ export class RecordingPage implements Page {
       this.onOrientationChange.bind(this),
     );
 
+    if (!this._locationManager.isLocationAccessGranted) {
+      this._sessionDraft?.findMaxGamma();
+    }
+
     return canvas;
   }
 

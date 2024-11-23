@@ -27,6 +27,30 @@ export class SessionDraft {
     this._orientations.push(correctedGammaWith90deg);
   }
 
+  findMaxGamma() {
+    setInterval(() => {
+      let gammaMax = 0;
+
+      for (const orientation of this._orientations) {
+        if (orientation > gammaMax) {
+          gammaMax = orientation;
+        }
+      }
+
+      if (Math.abs(gammaMax) > Math.abs(this._maxLeanAngle)) {
+        this._maxLeanAngle = gammaMax;
+      }
+
+      const point: Point = {
+        date: this._startTime,
+        gamma: gammaMax,
+      };
+
+      this._points.push(point);
+      this._orientations = [];
+    }, 500);
+  }
+
   addLocation(position: GeolocationPosition) {
     let gammaMax = 0;
 
@@ -86,15 +110,17 @@ export class SessionDraft {
   }
 
   private calcDistance(point: Point, prevPoint: Point): number {
-    let latFirst = prevPoint.latitude;
-    latFirst = this.deg2rad(latFirst);
-    let latLast = point.latitude;
-    latLast = this.deg2rad(latLast);
+    let latFirst = 0;
+    let latLast = 0;
+    latFirst = prevPoint.latitude ? this.deg2rad(prevPoint.latitude) : latFirst;
+    latLast = point.latitude ? this.deg2rad(point.latitude) : latFirst;
 
-    let lngFirst = prevPoint.longitude;
-    lngFirst = this.deg2rad(lngFirst);
-    let lngLast = point.longitude;
-    lngLast = this.deg2rad(lngLast);
+    let lngFirst = 0;
+    let lngLast = 0;
+    lngFirst = prevPoint.longitude
+      ? this.deg2rad(prevPoint.longitude)
+      : lngFirst;
+    lngLast = point.longitude ? this.deg2rad(point.longitude) : lngLast;
 
     const earthRadius = 6371; // Radius of the earth in km
 

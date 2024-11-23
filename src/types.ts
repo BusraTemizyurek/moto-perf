@@ -4,11 +4,11 @@ export interface Page<TOptions = unknown> {
 
 export interface Point {
   date: number;
-  latitude: number;
-  longitude: number;
-  timestamp: number;
-  speed: number;
-  distance: number;
+  latitude?: number;
+  longitude?: number;
+  timestamp?: number;
+  speed?: number;
+  distance?: number;
   gamma: number;
 }
 
