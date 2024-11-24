@@ -8,9 +8,11 @@ export class SessionDraft {
   private _points: Point[] = [];
   private _distance: number = 0;
   private _maxLeanAngle: number = 0;
+  private _isLocationAccessed: boolean;
 
-  constructor() {
+  constructor(isLocationAccessed: boolean) {
     this._startTime = new Date().getTime();
+    this._isLocationAccessed = isLocationAccessed;
   }
 
   get startTime() {
@@ -24,20 +26,26 @@ export class SessionDraft {
       : 0;
     const correctedGammaWith90deg =
       correctedGamma > 90 ? 90 : correctedGamma < -90 ? -90 : correctedGamma;
-    this._orientations.push(correctedGammaWith90deg);
+    if (Math.abs(correctedGammaWith90deg) > Math.abs(this._maxLeanAngle)) {
+      this._maxLeanAngle = correctedGammaWith90deg;
+    }
+    if (this._isLocationAccessed) {
+      this._orientations.push(correctedGammaWith90deg);
+    }
   }
 
   addLocation(position: GeolocationPosition) {
+    if (!this._isLocationAccessed) {
+      throw new Error(
+        "Add location function cannot be called. No location access.",
+      );
+    }
     let gammaMax = 0;
 
     for (const orientation of this._orientations) {
       if (Math.abs(orientation) > Math.abs(gammaMax)) {
         gammaMax = orientation;
       }
-    }
-
-    if (Math.abs(gammaMax) > Math.abs(this._maxLeanAngle)) {
-      this._maxLeanAngle = gammaMax;
     }
 
     const point: Point = {

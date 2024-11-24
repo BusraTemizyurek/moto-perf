@@ -188,7 +188,9 @@ export class RecordingPage implements Page {
   }
 
   render(root: HTMLElement) {
-    const sessionDraft = new SessionDraft();
+    const sessionDraft = new SessionDraft(
+      this._locationManager.isLocationAccessGranted,
+    );
     this._sessionDraft = sessionDraft;
 
     this._initialOrientation = this._orientationManager.lastOrientation;
