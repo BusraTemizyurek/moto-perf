@@ -1,8 +1,21 @@
 {
-    "name": "Moto-Perf",
-    "short_name": "Moto-Perf",
-    "display": "standalone",
-    "dir": "ltr",
-    "lang": "en",
-    "orientation": "any"
+  "name": "Moto-Perf",
+  "short_name": "MotoPerf",
+  "description": "MotoPerf is a performance tracking app designed for motorcycle enthusiasts. It provides real-time insights into lean angles (current, maximum, and minimum) and maps your route to help riders enhance their skills and track their rides. Whether you're on a casual ride or pushing limits on the track, MotoPerf delivers essential data to optimize every ride.",
+  "background_color": "#212529",
+  "theme_color": "#212529",
+  "display": "standalone",
+  "dir": "ltr",
+  "lang": "en",
+  "orientation": "portrait",
+  "categories": [
+    "sports",
+    "maps",
+    "navigation",
+    "lifestyle",
+    "health",
+    "auto_and_vehicles",
+    "tracking",
+    "recreation"
+  ]
 }
