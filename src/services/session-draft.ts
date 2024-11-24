@@ -35,6 +35,11 @@ export class SessionDraft {
   }
 
   addLocation(position: GeolocationPosition) {
+    if (!this._isLocationAccessed) {
+      throw new Error(
+        "Add location function cannot be called. No location access.",
+      );
+    }
     let gammaMax = 0;
 
     for (const orientation of this._orientations) {
