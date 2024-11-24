@@ -26,7 +26,7 @@ export class SessionDraft {
       : 0;
     const correctedGammaWith90deg =
       correctedGamma > 90 ? 90 : correctedGamma < -90 ? -90 : correctedGamma;
-    if (correctedGammaWith90deg > this._maxLeanAngle) {
+    if (Math.abs(correctedGammaWith90deg) > Math.abs(this._maxLeanAngle)) {
       this._maxLeanAngle = correctedGammaWith90deg;
     }
     if (this._isLocationAccessed) {
