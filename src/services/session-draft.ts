@@ -8,9 +8,11 @@ export class SessionDraft {
   private _points: Point[] = [];
   private _distance: number = 0;
   private _maxLeanAngle: number = 0;
+  private _isLocationAccessed: boolean;
 
-  constructor() {
+  constructor(isLocationAccessed: boolean) {
     this._startTime = new Date().getTime();
+    this._isLocationAccessed = isLocationAccessed;
   }
 
   get startTime() {
@@ -24,31 +26,12 @@ export class SessionDraft {
       : 0;
     const correctedGammaWith90deg =
       correctedGamma > 90 ? 90 : correctedGamma < -90 ? -90 : correctedGamma;
-    this._orientations.push(correctedGammaWith90deg);
-  }
-
-  findMaxGamma() {
-    setInterval(() => {
-      let gammaMax = 0;
-
-      for (const orientation of this._orientations) {
-        if (orientation > gammaMax) {
-          gammaMax = orientation;
-        }
-      }
-
-      if (Math.abs(gammaMax) > Math.abs(this._maxLeanAngle)) {
-        this._maxLeanAngle = gammaMax;
-      }
-
-      const point: Point = {
-        date: this._startTime,
-        gamma: gammaMax,
-      };
-
-      this._points.push(point);
-      this._orientations = [];
-    }, 500);
+    if (correctedGammaWith90deg > this._maxLeanAngle) {
+      this._maxLeanAngle = correctedGammaWith90deg;
+    }
+    if (this._isLocationAccessed) {
+      this._orientations.push(correctedGammaWith90deg);
+    }
   }
 
   addLocation(position: GeolocationPosition) {
@@ -58,10 +41,6 @@ export class SessionDraft {
       if (Math.abs(orientation) > Math.abs(gammaMax)) {
         gammaMax = orientation;
       }
-    }
-
-    if (Math.abs(gammaMax) > Math.abs(this._maxLeanAngle)) {
-      this._maxLeanAngle = gammaMax;
     }
 
     const point: Point = {
@@ -110,17 +89,15 @@ export class SessionDraft {
   }
 
   private calcDistance(point: Point, prevPoint: Point): number {
-    let latFirst = 0;
-    let latLast = 0;
-    latFirst = prevPoint.latitude ? this.deg2rad(prevPoint.latitude) : latFirst;
-    latLast = point.latitude ? this.deg2rad(point.latitude) : latFirst;
+    let latFirst = prevPoint.latitude;
+    latFirst = this.deg2rad(latFirst);
+    let latLast = point.latitude;
+    latLast = this.deg2rad(latLast);
 
-    let lngFirst = 0;
-    let lngLast = 0;
-    lngFirst = prevPoint.longitude
-      ? this.deg2rad(prevPoint.longitude)
-      : lngFirst;
-    lngLast = point.longitude ? this.deg2rad(point.longitude) : lngLast;
+    let lngFirst = prevPoint.longitude;
+    lngFirst = this.deg2rad(lngFirst);
+    let lngLast = point.longitude;
+    lngLast = this.deg2rad(lngLast);
 
     const earthRadius = 6371; // Radius of the earth in km
 
