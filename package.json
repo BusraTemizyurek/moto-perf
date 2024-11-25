@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "bundle": "webpack",
+    "bundle": "webpack --mode=production",
     "start": "webpack serve --open",
-    "lint": "eslint 'src/**/*.{js,mjs,cjs,ts}'",
+    "lint": "eslint",
     "format": "prettier --ignore-path .gitignore --write 'src/**/*.+(js|ts|json)'"
   },
   "author": "",
