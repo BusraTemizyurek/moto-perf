@@ -23,6 +23,7 @@ export class RecordingPage implements Page {
   private _sessionDraft: SessionDraft | undefined;
   private _initialOrientation: DeviceOrientationEvent | undefined;
   private _wakeLockManager: WakeLockManager;
+  private _speedValue: HTMLElement | undefined;
 
   constructor(
     locationManager: LocationManager,
@@ -118,12 +119,12 @@ export class RecordingPage implements Page {
 
     const speedTitle = document.createElement("div");
     const speedValue = document.createElement("div");
+    this._speedValue = speedValue;
     const speedUnit = document.createElement("div");
 
     speedTitle.innerText = "AVG SPEED";
     speedTitle.classList.add("fs-7");
 
-    speedValue.innerText = `${this._position?.coords.speed ?? 0}`;
     speedValue.classList.add("recording-page-values");
 
     speedUnit.innerText = "KM/H";
@@ -178,7 +179,9 @@ export class RecordingPage implements Page {
   }
 
   private onNewPositionReported(position: GeolocationPosition) {
-    this._position = position;
+    if (this._speedValue) {
+      this._speedValue.innerText = position.coords.speed?.toString() ?? "";
+    }
     this._sessionDraft?.addLocation(position);
   }
 
