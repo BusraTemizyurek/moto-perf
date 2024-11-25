@@ -1,9 +1,10 @@
 {
   "name": "Moto-Perf",
   "short_name": "MotoPerf",
-  "description": "MotoPerf is a performance tracking app designed for motorcycle enthusiasts. It provides real-time insights into lean angles (current, maximum, and minimum) and maps your route to help riders enhance their skills and track their rides. Whether you're on a casual ride or pushing limits on the track, MotoPerf delivers essential data to optimize every ride.",
+  "description": "MotoPerf is a performance tracking app designed for motorcycle enthusiasts. It provides real-time insights into max lean angle to help riders enhance their skills and track their rides. Whether you're on a casual ride or pushing limits on the track, MotoPerf delivers essential data to optimize every ride.",
   "background_color": "#212529",
   "theme_color": "#212529",
+  "start_url": "https://moto-perf.vercel.app",
   "display": "standalone",
   "dir": "ltr",
   "lang": "en",
@@ -17,5 +18,17 @@
     "auto_and_vehicles",
     "tracking",
     "recreation"
+  ],
+  "icons": [
+    {
+      "src": "public/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "public/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
