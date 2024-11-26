@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import { fileURLToPath } from "url";
+import CopyPlugin from "copy-webpack-plugin";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,6 +16,10 @@ export default {
         exclude: /node_modules/,
       },
       {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
@@ -26,7 +31,6 @@ export default {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
-    roots: [dirname, path.resolve(dirname, "public")],
   },
   output: {
     filename: "[name].js",
@@ -45,6 +49,9 @@ export default {
       template: dirname + "/templates/index.html",
       filename: "index.html",
       inject: "body",
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "public" }],
     }),
   ],
 };

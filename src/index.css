@@ -45,12 +45,12 @@ body {
 }
 
 .modal-bg {
-  background-image: url(/images/bg2.jpg);
+  background-image: url(./images/bg2.jpg);
   background-position: top;
 }
 
 .recording-page-div {
-  background-image: url(/images/bg2_subtle.jpg);
+  background-image: url(./images/bg2_subtle.jpg);
   background-position: top;
   height: 100%;
 }
