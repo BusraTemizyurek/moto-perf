@@ -3,6 +3,10 @@ import type { Router } from "../services/router";
 import type { SessionRepository } from "../services/session-repository";
 import type { Session, Page } from "../types";
 import { formatDate, formatDuration } from "../utilities";
+import distanceImage from "../images/distance.png";
+import leanImage from "../images/lean.png";
+import speedImage from "../images/speed.png";
+import timeImage from "../images/time.png";
 
 interface SummaryPageOptions {
   session: Session;
@@ -96,7 +100,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
     const duration = document.createElement("div");
     const durationIcon = document.createElement("img");
-    durationIcon.src = "./images/time.png";
+    durationIcon.src = timeImage;
     durationIcon.classList.add("summary-images");
     const durationVal = document.createElement("div");
     durationVal.classList.add("fs-big-4", "p-3");
@@ -111,7 +115,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
     const maxLeanAngle = document.createElement("div");
     const maxLeanAngleIcon = document.createElement("img");
-    maxLeanAngleIcon.src = "./images/lean.png";
+    maxLeanAngleIcon.src = leanImage;
     maxLeanAngleIcon.classList.add("summary-images");
     const maxLeanAngleVal = document.createElement("div");
     maxLeanAngleVal.classList.add("fs-big-4", "p-3");
@@ -140,7 +144,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
       const distance = document.createElement("div");
       const distanceIcon = document.createElement("img");
-      distanceIcon.src = "./images/distance.png";
+      distanceIcon.src = distanceImage;
       distanceIcon.classList.add("summary-images");
       const distanceVal = document.createElement("div");
       distanceVal.classList.add("fs-big-4", "p-3");
@@ -155,7 +159,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
       const speed = document.createElement("div");
       const speedIcon = document.createElement("img");
-      speedIcon.src = "./images/speed.png";
+      speedIcon.src = speedImage;
       speedIcon.classList.add("summary-images");
       const speedVal = document.createElement("div");
       speedVal.classList.add("fs-big-4", "p-3");
