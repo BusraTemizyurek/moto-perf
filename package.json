@@ -11,7 +11,7 @@
     "bundle": "webpack --mode=production",
     "start": "webpack serve --open",
     "lint": "eslint",
-    "format": "prettier --ignore-path .gitignore --write ."
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
