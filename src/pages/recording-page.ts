@@ -120,6 +120,7 @@ export class RecordingPage implements Page {
     const speedTitle = document.createElement("div");
     const speedValue = document.createElement("div");
     this._speedValue = speedValue;
+    speedValue.innerText = "0";
     const speedUnit = document.createElement("div");
 
     speedTitle.innerText = "AVG SPEED";
@@ -180,7 +181,7 @@ export class RecordingPage implements Page {
 
   private onNewPositionReported(position: GeolocationPosition) {
     if (this._speedValue) {
-      this._speedValue.innerText = position.coords.speed?.toString() ?? "";
+      this._speedValue.innerText = position.coords.speed?.toString() ?? "0";
     }
     this._sessionDraft?.addLocation(position);
   }
