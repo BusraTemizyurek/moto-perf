@@ -195,7 +195,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "flex-row",
       "justify-content-center",
       "gap-2",
-      "p-2",
+      "pb-4",
       "bg-body",
     );
 
