@@ -199,7 +199,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "border-0",
       "btn",
       "btn-success",
-      "rounded-0",
+      "rounded-4",
       "summary-buttons",
     );
     save.innerText = "Save";
@@ -212,7 +212,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "border-0",
       "btn",
       "btn-danger",
-      "rounded-0",
+      "rounded-4",
       "summary-buttons",
     );
     discard.innerText = "Discard";
