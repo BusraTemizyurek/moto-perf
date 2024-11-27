@@ -30,5 +30,27 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "IMG_1578.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "IMG_1579.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "IMG_1580.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "IMG_1581.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
   ]
 }
