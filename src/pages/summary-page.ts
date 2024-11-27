@@ -195,6 +195,8 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "flex-row",
       "justify-content-center",
       "gap-2",
+      "p-2",
+      "bg-body",
     );
 
     const save = document.createElement("button");
