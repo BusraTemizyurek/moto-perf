@@ -190,16 +190,23 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
   private createFooter() {
     const buttons = document.createElement("div");
-    buttons.classList.add("d-flex", "flex-row", "justify-content-between");
+    buttons.classList.add(
+      "d-flex",
+      "flex-row",
+      "justify-content-center",
+      "gap-2",
+      "pb-4",
+      "bg-body",
+    );
 
     const save = document.createElement("button");
     save.classList.add(
-      "w-50",
+      "w-30",
       "border",
       "border-0",
       "btn",
       "btn-success",
-      "rounded-0",
+      "rounded-5",
       "summary-buttons",
     );
     save.innerText = "Save";
@@ -207,12 +214,12 @@ export class SummaryPage implements Page<SummaryPageOptions> {
 
     const discard = document.createElement("button");
     discard.classList.add(
-      "w-50",
+      "w-30",
       "border",
       "border-0",
       "btn",
       "btn-danger",
-      "rounded-0",
+      "rounded-5",
       "summary-buttons",
     );
     discard.innerText = "Discard";
