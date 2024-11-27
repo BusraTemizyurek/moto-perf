@@ -127,5 +127,13 @@ body {
 }
 
 .summary-buttons {
-  height: 80px;
+  height: 60px;
+}
+
+.rounded-bottom-right {
+  border-bottom-right-radius: 20px;
+}
+
+.rounded-bottom-left {
+  border-bottom-left-radius: 20px;
 }
