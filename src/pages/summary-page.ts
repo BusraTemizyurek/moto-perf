@@ -199,6 +199,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "border-0",
       "btn",
       "btn-success",
+      "rounded-0",
       "rounded-bottom-left",
       "summary-buttons",
     );
@@ -212,6 +213,7 @@ export class SummaryPage implements Page<SummaryPageOptions> {
       "border-0",
       "btn",
       "btn-danger",
+      "rounded-0",
       "rounded-bottom-right",
       "summary-buttons",
     );
