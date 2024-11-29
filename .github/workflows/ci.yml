@@ -31,3 +31,6 @@ jobs:
 
       - name: Bundle
         run: npm run bundle
+
+      - name: Generate App Package for Android
+        run: node scripts/generateAppPackage.js public/app.apk
