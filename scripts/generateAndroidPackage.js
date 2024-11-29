@@ -1,9 +1,8 @@
 import fs from "fs";
 import { Readable } from "stream";
-import process from "process";
 
 export async function generateAndroidPackage(outputFilePath) {
-  const appHost = process.env.VERCEL_URL ?? "moto-perf.vercel.app";
+  const appHost = "moto-perf.vercel.app";
   const response = await fetch(
     "https://pwabuilder-cloudapk.azurewebsites.net/generateAppPackage",
     {
