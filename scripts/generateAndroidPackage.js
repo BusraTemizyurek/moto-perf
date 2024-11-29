@@ -1,5 +1,6 @@
 import fs from "fs";
 import { Readable } from "stream";
+import process from "process";
 
 export async function generateAndroidPackage(outputFilePath) {
   const appHost = "moto-perf.vercel.app";
