@@ -14,7 +14,7 @@ const repoRootPath = path.resolve(
 const publicFolderPath = path.join(repoRootPath, "public");
 const publicTempFolderPath = path.join(publicFolderPath, "temp");
 const publicWellknownFolderPath = path.join(publicFolderPath, ".well-known");
-const tempDir = path.join(os.tmpdir(), "tmp", "moto-perf");
+const tempDir = path.join(os.tmpdir(), "moto-perf");
 
 // Remove and re-create temp folders
 for (const folderPath of [
@@ -49,7 +49,7 @@ copyFileSync(
 const apkFileName = "MotoPerf.apk";
 copyFileSync(
   path.join(androidExtracted, apkFileName),
-  path.join(publicFolderPath, "temp", apkFileName),
+  path.join(publicTempFolderPath, apkFileName),
 );
 
 // Remove temp folder
