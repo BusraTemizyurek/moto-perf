@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
+import { Readable } from "stream";
 
 async function downloadAppPackage(outputFilePath) {
   const response = await fetch(
@@ -73,14 +74,18 @@ async function downloadAppPackage(outputFilePath) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  // Create a write stream to save the file
+  // Convert the web-readable stream to a Node.js-readable stream
+  const nodeStream = Readable.toWeb(response.body);
+
+  // Create a writable stream to save the file
   const fileStream = fs.createWriteStream(outputFilePath);
 
-  // Pipe the response body directly into the file
+  // Pipe the converted stream to the file
   await new Promise((resolve, reject) => {
-    response.body.pipe(fileStream);
-    response.body.on("error", reject);
-    fileStream.on("finish", resolve);
+    nodeStream
+      .pipeTo(Writable.toNodeStream(fileStream))
+      .then(resolve)
+      .catch(reject);
   });
 }
 
@@ -88,7 +93,7 @@ async function downloadAppPackage(outputFilePath) {
 const args = process.argv.slice(2);
 
 if (args.length < 1) {
-  console.error("Usage: node script.js <outputFilePath>");
+  console.error("Usage: node generateAppPackage.js <outputFilePath>");
   process.exit(1);
 }
 
@@ -97,4 +102,7 @@ const outputFilePath = path.resolve(args[0]);
 // Download the file
 downloadAppPackage(outputFilePath)
   .then(() => console.log("Download complete"))
-  .catch((err) => console.error("Error:", err));
+  .catch((err) => {
+    console.error("Error:", err);
+    process.exit(1);
+  });
