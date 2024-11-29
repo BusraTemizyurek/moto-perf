@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
-import { Readable } from "stream";
+import { Readable, Writable } from "stream";
 
 async function downloadAppPackage(outputFilePath) {
   const response = await fetch(
