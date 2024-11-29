@@ -13,10 +13,15 @@ const repoRootPath = path.resolve(
 );
 const publicFolderPath = path.join(repoRootPath, "public");
 const publicTempFolderPath = path.join(publicFolderPath, "temp");
+const publicWellknownFolderPath = path.join(publicFolderPath, ".well-known");
 const tempDir = path.join(os.tmpdir(), "tmp", "moto-perf");
 
 // Remove and re-create temp folders
-for (const folderPath of [tempDir, publicTempFolderPath]) {
+for (const folderPath of [
+  tempDir,
+  publicTempFolderPath,
+  publicWellknownFolderPath,
+]) {
   if (existsSync(folderPath)) {
     rmSync(folderPath, { recursive: true, force: true });
   }
@@ -37,7 +42,7 @@ console.log(`Android package is extracted to ${androidExtracted}`);
 const assetlinksFileName = "assetlinks.json";
 copyFileSync(
   path.join(androidExtracted, assetlinksFileName),
-  path.join(publicFolderPath, ".well-known", assetlinksFileName),
+  path.join(publicWellknownFolderPath, assetlinksFileName),
 );
 
 // Copy MotoPerf.apk to public/temp
