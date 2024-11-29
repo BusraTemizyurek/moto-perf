@@ -1,8 +1,12 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "app.vercel.moto_perf.twa",
-        "sha256_cert_fingerprints": ["FF:6E:68:28:87:6A:4D:4B:3C:E1:78:9C:5B:A1:C5:1A:E9:98:7A:D4:6C:FA:43:A4:90:91:FB:12:6C:0B:68:B8"]
-      }
-    }]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.moto_perf.twa",
+      "sha256_cert_fingerprints": [
+        "FF:6E:68:28:87:6A:4D:4B:3C:E1:78:9C:5B:A1:C5:1A:E9:98:7A:D4:6C:FA:43:A4:90:91:FB:12:6C:0B:68:B8"
+      ]
+    }
+  }
+]
