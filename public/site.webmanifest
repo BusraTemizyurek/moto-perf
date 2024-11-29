@@ -20,17 +20,21 @@
     "recreation"
   ],
   "icons": [
-    { "src": "/favicon.ico", "type": "image/x-icon", "sizes": "16x16 32x32" },
-    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
     {
-      "src": "/icon-192-maskable.png",
+      "src": "/images/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32"
+    },
+    { "src": "/images/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/images/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    {
+      "src": "/images/icon-192-maskable.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/icon-512-maskable.png",
+      "src": "/images/icon-512-maskable.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
@@ -38,22 +42,22 @@
   ],
   "screenshots": [
     {
-      "src": "IMG_1578.png",
+      "src": "/images/IMG_1578.png",
       "sizes": "1280x720",
       "type": "image/png"
     },
     {
-      "src": "IMG_1579.png",
+      "src": "/images/IMG_1579.png",
       "sizes": "1280x720",
       "type": "image/png"
     },
     {
-      "src": "IMG_1580.png",
+      "src": "/images/IMG_1580.png",
       "sizes": "1280x720",
       "type": "image/png"
     },
     {
-      "src": "IMG_1581.png",
+      "src": "/images/IMG_1581.png",
       "sizes": "1280x720",
       "type": "image/png"
     }
