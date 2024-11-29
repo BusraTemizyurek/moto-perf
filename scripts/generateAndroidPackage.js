@@ -1,9 +1,8 @@
 import fs from "fs";
-import path from "path";
-import process from "process";
-import { Readable, Writable } from "stream";
+import { Readable } from "stream";
 
-async function downloadAppPackage(outputFilePath) {
+export async function generateAndroidPackage(outputFilePath) {
+  const appHost = process.env.VERCEL_URL ?? "moto-perf.vercel.app";
   const response = await fetch(
     "https://pwabuilder-cloudapk.azurewebsites.net/generateAppPackage",
     {
@@ -31,14 +30,13 @@ async function downloadAppPackage(outputFilePath) {
           locationDelegation: { enabled: false },
           playBilling: { enabled: false },
         },
-        host: "moto-perf.vercel.app",
-        iconUrl: "https://moto-perf.vercel.app/images/icon-512.png",
+        host: appHost,
+        iconUrl: `https://${appHost}/images/icon-512.png`,
         includeSourceCode: false,
         isChromeOSOnly: false,
         isMetaQuest: false,
         launcherName: "MotoPerf",
-        maskableIconUrl:
-          "https://moto-perf.vercel.app/images/icon-512-maskable.png",
+        maskableIconUrl: `https://${appHost}/images/icon-512-maskable.png`,
         monochromeIconUrl: "",
         name: "MotoPerf",
         navigationColor: "#212529",
@@ -63,9 +61,9 @@ async function downloadAppPackage(outputFilePath) {
         startUrl: "/",
         themeColor: "#212529",
         themeColorDark: "#212529",
-        webManifestUrl: "https://moto-perf.vercel.app/site.webmanifest",
-        pwaUrl: "https://moto-perf.vercel.app/",
-        fullScopeUrl: "https://moto-perf.vercel.app/",
+        webManifestUrl: `https://${appHost}/site.webmanifest`,
+        pwaUrl: `https://${appHost}/`,
+        fullScopeUrl: `https://${appHost}/`,
       }),
     },
   );
@@ -74,35 +72,23 @@ async function downloadAppPackage(outputFilePath) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  // Convert the web-readable stream to a Node.js-readable stream
-  const nodeStream = Readable.toWeb(response.body);
-
-  // Create a writable stream to save the file
-  const fileStream = fs.createWriteStream(outputFilePath);
-
-  // Pipe the converted stream to the file
   await new Promise((resolve, reject) => {
-    nodeStream
-      .pipeTo(Writable.toNodeStream(fileStream))
-      .then(resolve)
-      .catch(reject);
+    // Create a writable stream to save the file
+    const fileStream = fs.createWriteStream(outputFilePath);
+
+    // Convert the fetch response body (ReadableStream) into a Node.js stream
+    const readableStream = Readable.fromWeb(response.body);
+
+    // Pipe the response body into the writable stream
+    readableStream.pipe(fileStream);
+
+    // Ensure that the file write completes
+    fileStream.on("finish", resolve);
+
+    // Handle errors in the stream
+    fileStream.on("error", (err) => {
+      console.error(`Error writing the file: ${err.message}`);
+      reject(error);
+    });
   });
 }
-
-// Get output file path from command-line arguments
-const args = process.argv.slice(2);
-
-if (args.length < 1) {
-  console.error("Usage: node generateAppPackage.js <outputFilePath>");
-  process.exit(1);
-}
-
-const outputFilePath = path.resolve(args[0]);
-
-// Download the file
-downloadAppPackage(outputFilePath)
-  .then(() => console.log("Download complete"))
-  .catch((err) => {
-    console.error("Error:", err);
-    process.exit(1);
-  });
