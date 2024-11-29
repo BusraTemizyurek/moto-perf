@@ -1,5 +1,9 @@
+import fs from "fs";
+import path from "path";
+import process from "process";
+
 async function downloadAppPackage(outputFilePath) {
-  const reponse = await fetch(
+  const response = await fetch(
     "https://pwabuilder-cloudapk.azurewebsites.net/generateAppPackage",
     {
       headers: {
