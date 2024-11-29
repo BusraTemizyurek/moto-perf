@@ -1,5 +1,6 @@
 import fs from "fs";
 import { Readable } from "stream";
+import process from "process";
 
 export async function generateAndroidPackage(outputFilePath) {
   const appHost = process.env.VERCEL_URL ?? "moto-perf.vercel.app";
@@ -88,7 +89,7 @@ export async function generateAndroidPackage(outputFilePath) {
     // Handle errors in the stream
     fileStream.on("error", (err) => {
       console.error(`Error writing the file: ${err.message}`);
-      reject(error);
+      reject(err);
     });
   });
 }

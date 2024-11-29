@@ -4,7 +4,7 @@ import { generateAndroidPackage } from "./generateAndroidPackage.js";
 import { extractZip } from "./extractZip.js";
 import os from "os";
 import path from "path";
-import { copyFile, copyFileSync, existsSync, mkdirSync, rmSync } from "fs";
+import { copyFileSync, existsSync, mkdirSync, rmSync } from "fs";
 import { fileURLToPath } from "url";
 
 // Path to moto-perf folder (aka root of this repository)
