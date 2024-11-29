@@ -87,8 +87,8 @@ async function downloadAppPackage(outputFilePath) {
 // Get output file path from command-line arguments
 const args = process.argv.slice(2);
 
-if (args.length < 2) {
-  console.error("Usage: node script.js <url> <outputFilePath>");
+if (args.length < 1) {
+  console.error("Usage: node script.js <outputFilePath>");
   process.exit(1);
 }
 
