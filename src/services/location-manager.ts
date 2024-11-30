@@ -31,6 +31,9 @@ export class LocationManager {
     const watchId = navigator.geolocation.watchPosition(
       onNewPositionReported,
       onErrorWatchPosition,
+      {
+        enableHighAccuracy: true,
+      },
     );
     this._watchId = watchId;
   }
