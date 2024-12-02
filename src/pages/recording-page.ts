@@ -185,7 +185,7 @@ export class RecordingPage implements Page {
 
   private onNewPositionReported(position: GeolocationPosition) {
     if (this._speedValue) {
-      let speed: number | null = position.coords.speed;
+      let speed = position.coords.speed;
       if (speed) {
         speed = speed * 3.6;
         this._speedValue.innerText = speed.toFixed();
