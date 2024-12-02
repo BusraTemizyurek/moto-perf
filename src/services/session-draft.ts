@@ -79,7 +79,7 @@ export class SessionDraft {
 
     const session: Session = {
       date: new Date(this._startTime),
-      distance: Math.ceil(this._distance),
+      distance: Math.ceil(this._distance * 100) / 100,
       duration: timeInterval,
       speed: Math.ceil(this._distance / (timeInterval / 1000 / 3600)),
       maxLeanAngle: Math.ceil(this._maxLeanAngle),
