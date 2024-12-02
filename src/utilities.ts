@@ -51,9 +51,10 @@ export function convertTimeStampToTime(elapsedTime: number) {
 }
 
 export function formatDuration(time: number) {
-  const { hours, minutes } = convertTimeStampToTime(time);
+  const { hours, minutes, seconds } = convertTimeStampToTime(time);
   const h = hours > 0 ? `${hours} h` : "";
   const min = minutes > 0 ? `${minutes} min` : "";
+  const sec = h === "" && min === "" ? `${seconds} sec` : "";
 
-  return hours <= 0 && minutes <= 0 ? `0` : `${h} ${min}`;
+  return hours <= 0 && minutes <= 0 ? `${sec}` : `${h} ${min}`;
 }
