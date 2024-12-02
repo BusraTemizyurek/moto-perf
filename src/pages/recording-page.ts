@@ -186,7 +186,7 @@ export class RecordingPage implements Page {
   private onNewPositionReported(position: GeolocationPosition) {
     if (this._speedValue) {
       this._speedValue.innerText =
-        position.coords.speed?.toFixed(2).toString() ?? "0";
+        position.coords.speed?.toFixed().toString() ?? "0";
     }
     this._sessionDraft?.addLocation(position);
   }
