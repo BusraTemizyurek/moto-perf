@@ -149,8 +149,8 @@ export class MainPage implements Page {
         title: "Orientation Access",
         createContent: () => {
           const content = document.createElement("div");
-          // TODO: Instructions will be written here
-          content.innerText = "Instructions will be here";
+          content.innerText =
+            "Please go to your settings and allow app to use your orientation data in order to use this app";
           content.classList.add("text-white");
           return content;
         },
