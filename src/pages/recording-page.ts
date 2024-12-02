@@ -98,6 +98,8 @@ export class RecordingPage implements Page {
   }
 
   private createGaugePart() {
+    const container = document.createElement("div");
+
     const canvas = document.createElement("canvas");
     canvas.classList.add("w-100");
     canvas.id = "lean-angle";
@@ -105,13 +107,15 @@ export class RecordingPage implements Page {
       width: "380",
       height: "180",
     });
-    this._gauge = new Gauge(canvas, "#4d5154");
+
+    container.append(canvas);
+    this._gauge = new Gauge(container, canvas, "#4d5154");
     this._gauge.draw(0, getGaugeColor(0));
     this._wathchHandler = this._orientationManager.watch(
       this.onOrientationChange.bind(this),
     );
 
-    return canvas;
+    return container;
   }
 
   private createSpeedPart() {

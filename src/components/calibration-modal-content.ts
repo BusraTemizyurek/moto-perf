@@ -9,7 +9,7 @@ import { setAttributes } from "../utilities";
 export class CalibrationModalContent {
   private readonly _modalContent: HTMLElement;
   private readonly _waitingContent: HTMLElement;
-  private readonly _canvas: HTMLCanvasElement;
+  private readonly _container: HTMLElement;
   private readonly _orientationManager: OrientationManager;
   private readonly _gauge: Gauge;
   private _watchHandler: OrientationWatcher | undefined;
@@ -51,17 +51,19 @@ export class CalibrationModalContent {
     );
 
     //calibration page
+    const container = document.createElement("div");
+    container.classList.add("d-none");
+    this._container = container;
+
     const canvas = document.createElement("canvas");
-    this._canvas = canvas;
-    canvas.classList.add("mb-5", "d-none");
     canvas.id = "lean-angle";
     setAttributes(canvas, {
       width: "380",
       height: "180",
     });
-    this._gauge = new Gauge(canvas, "#4d5154");
-
-    modalContent.append(waitingPage, canvas);
+    container.append(canvas);
+    this._gauge = new Gauge(container, canvas, "#4d5154");
+    modalContent.append(waitingPage, container);
   }
 
   onOrientationUpdate(ev: DeviceOrientationEvent) {
@@ -73,10 +75,10 @@ export class CalibrationModalContent {
 
   hideWaitingContent() {
     this._waitingContent.classList.add("d-none");
-    this._canvas.classList.remove("d-none");
-
     //to start a gauge with angle 0 even orientation is closed at first.
     this._gauge.draw(0, getGaugeColor(0));
+    this._container.classList.remove("d-none");
+
     const watchHandler = this._orientationManager.watch(
       this.onOrientationUpdate.bind(this),
     );
@@ -89,7 +91,7 @@ export class CalibrationModalContent {
 
   showWaitingContent() {
     this._waitingContent.classList.remove("d-none");
-    this._canvas.classList.add("d-none");
+    this._container.classList.add("d-none");
   }
 
   get element() {

@@ -130,3 +130,7 @@ body {
   height: 60px;
   width: 100px;
 }
+
+.z-index {
+  z-index: 999;
+}

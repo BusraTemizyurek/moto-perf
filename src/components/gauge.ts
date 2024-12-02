@@ -1,11 +1,20 @@
+import { setAttributes } from "../utilities";
+
 export class Gauge {
   private readonly _bgcolor: string = "#222";
   private readonly _W: number;
   private readonly _H: number;
   private readonly _radius: number;
   private readonly _ctx: CanvasRenderingContext2D;
+  private _container: HTMLElement;
 
-  constructor(canvas: HTMLCanvasElement, backgroundColor: string) {
+  constructor(
+    container: HTMLElement,
+    canvas: HTMLCanvasElement,
+    backgroundColor: string,
+  ) {
+    this._container = container;
+
     this._bgcolor = backgroundColor ?? this._bgcolor;
     const temp = canvas.getContext("2d");
     if (!temp) {
@@ -58,38 +67,12 @@ export class Gauge {
     this._ctx.stroke();
   }
 
-  private drawAngleText(angle: number) {
-    const adjustedAngle = angle > 90 ? 90 : angle < -90 ? -90 : angle;
+  private _degreeText: HTMLDivElement | undefined = undefined;
+  private createAngleText(angle: number) {
+    const degree = document.createElement("div");
+    degree.classList.add("z-index", "position-absolute", "fs-big-1");
 
-    let x = this._W / 2;
-    const y = this._H - 5;
-
-    if (adjustedAngle < 0) {
-      x -= 20;
-
-      if (adjustedAngle > -10) {
-        x -= 18;
-      } else {
-        x -= 35;
-      }
-    } else if (adjustedAngle > 0) {
-      if (adjustedAngle > 9) {
-        x -= 35;
-      } else {
-        x -= 10;
-      }
-    } else {
-      x -= 18;
-    }
-
-    this._ctx.font = "60px serif";
-    this._ctx.lineWidth = 6;
-
-    for (let i = 0; i < adjustedAngle.toString().length; i++) {
-      const letter = adjustedAngle.toString()[i];
-      this._ctx.strokeText(letter, x, y, this._W - 30);
-      x += this._ctx.measureText(letter).width + 6;
-    }
+    return degree;
   }
 
   draw(angle: number, color = "lightgreen") {
@@ -99,6 +82,20 @@ export class Gauge {
     this.drawHalfCircle();
 
     this.drawIndicator(angle, color);
-    this.drawAngleText(angle);
+
+    if (!this._degreeText) {
+      this._degreeText = this.createAngleText(angle);
+      this._container.append(this._degreeText);
+    }
+
+    this._container.classList.add(
+      "d-flex",
+      "flex-column",
+      "justify-content-end",
+      "align-items-center",
+    );
+    const adjustedAngle = angle > 90 ? 90 : angle < -90 ? -90 : angle;
+    this._degreeText.innerText = `${adjustedAngle}`;
+    this._degreeText.style.color = color;
   }
 }
