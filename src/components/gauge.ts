@@ -1,5 +1,3 @@
-import { setAttributes } from "../utilities";
-
 export class Gauge {
   private readonly _bgcolor: string = "#222";
   private readonly _W: number;
@@ -68,7 +66,7 @@ export class Gauge {
   }
 
   private _degreeText: HTMLDivElement | undefined = undefined;
-  private createAngleText(angle: number) {
+  private createAngleText() {
     const degree = document.createElement("div");
     degree.classList.add("z-index", "position-absolute", "fs-big-1");
 
@@ -84,7 +82,7 @@ export class Gauge {
     this.drawIndicator(angle, color);
 
     if (!this._degreeText) {
-      this._degreeText = this.createAngleText(angle);
+      this._degreeText = this.createAngleText();
       this._container.append(this._degreeText);
     }
 
