@@ -127,7 +127,7 @@ export class RecordingPage implements Page {
     speedValue.innerText = "0";
     const speedUnit = document.createElement("div");
 
-    speedTitle.innerText = "AVG SPEED";
+    speedTitle.innerText = "SPEED";
     speedTitle.classList.add("fs-7");
 
     speedValue.classList.add("recording-page-values");
@@ -185,8 +185,8 @@ export class RecordingPage implements Page {
 
   private onNewPositionReported(position: GeolocationPosition) {
     if (this._speedValue) {
-      this._speedValue.innerText =
-        position.coords.speed?.toFixed().toString() ?? "0";
+      const speedKmH = (position.coords.speed ?? 0) * 3.6;
+      this._speedValue.innerText = speedKmH.toFixed();
     }
     this._sessionDraft?.addLocation(position);
   }
