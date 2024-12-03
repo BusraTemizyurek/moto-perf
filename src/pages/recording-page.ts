@@ -185,13 +185,8 @@ export class RecordingPage implements Page {
 
   private onNewPositionReported(position: GeolocationPosition) {
     if (this._speedValue) {
-      let speed = position.coords.speed;
-      if (speed) {
-        speed = speed * 3.6;
-        this._speedValue.innerText = speed.toFixed();
-      } else {
-        this._speedValue.innerText = "0";
-      }
+      const speedKmH = (position.coords.speed ?? 0) * 3.6;
+      this._speedValue.innerText = speedKmH.toFixed();
     }
     this._sessionDraft?.addLocation(position);
   }
